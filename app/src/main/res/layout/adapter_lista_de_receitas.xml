@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_corner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_imagem_da_receita"
+            android:src="@drawable/ic_imagem_da_receita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textview_nome_da_receita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receita"
+            android:layout_marginStart="30dp"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageview_imagem_da_receita"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textview_categoria_da_receita"
+            android:text="Categoria"
+            android:textSize="15sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@id/textview_nome_da_receita"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_nome_da_receita"
+            app:layout_constraintBottom_toBottomOf="@id/textview_nome_da_receita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar_mostra_receita"
+            layout="@layout/frame_tool_bar"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_voltar_lista_de_receitas"
+            style="@android:style/Animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_effect"
+            android:text="Voltar"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_mostra_receita"
+            app:layout_constraintStart_toStartOf="@id/toolbar_mostra_receita"
+            app:layout_constraintTop_toTopOf="@id/toolbar_mostra_receita" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_editar_receita"
+            style="@android:style/Animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_effect"
+            android:text="Editar"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_mostra_receita"
+            app:layout_constraintEnd_toEndOf="@id/toolbar_mostra_receita"
+            app:layout_constraintTop_toTopOf="@id/toolbar_mostra_receita" />
+
+        <view
+            class="androidx.constraintlayout.widget.ConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/rounded_corner"
+            android:padding="4dp"
+            app:cardBackgroundColor="@color/cardview_shadow_end_color"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_mostra_receita">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_mostra_nome_receita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nome da Receita"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_titulo_ingredientes_receita"
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_nome_receita"
+                    android:layout_marginTop="10dp"
+                    android:text="Ingredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_mostra_ingredientes_receita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredientes"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_ingredientes_receita" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_titulo_descricao_receita"
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_ingredientes_receita"
+                    android:layout_marginTop="10dp"
+                    android:text="Modo de Preparo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_mostra_descricao_receita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="Descrição"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_descricao_receita" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_titulo_porcao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rendimento"
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_descricao_receita"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_mostra_porcao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Porção"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_porcao"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </view>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
