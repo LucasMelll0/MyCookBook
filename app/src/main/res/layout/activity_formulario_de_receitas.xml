@@ -34,6 +34,20 @@
             app:layout_constraintTop_toTopOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintBottom_toBottomOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintEnd_toEndOf="@id/toolbar_formulario_de_receitas"/>
+        <view
+            android:id="@+id/view_confirma_remocao_formulario_activity"
+            class="android.widget.LinearLayout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:translationZ="@dimen/cardview_default_elevation"
+            android:visibility="gone">
+            <include layout="@layout/frame_confirmacao_de_remocao"
+                />
+        </view>
 
         <view
             class="android.widget.LinearLayout"
@@ -47,46 +61,91 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_formulario_de_receitas">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Nome da Receita"
+                />
+
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_nome_da_receita"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
                 android:hint="Nome"
                 android:inputType="text" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_ingredientes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Ingredientes"
+                />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_ingredientes_da_receitas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginBottom="10dp"
                 android:hint="Ingredientes"
                 android:inputType="textMultiLine"
                 android:maxLines="8"
                 android:minHeight="50dp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Modo de Preparo"
+                />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_descricao_da_receitas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginBottom="10dp"
                 android:hint="Descrição"
                 android:inputType="textMultiLine"
                 android:maxLines="15"
                 android:minHeight="50dp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_porcao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Porção"
+                />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_porcao_da_receita"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginVertical="8dp"
+                android:layout_marginBottom="10dp"
                 android:hint="porção"
                 android:inputType="number" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Categoria"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_categoria"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_salvar_receita"

@@ -113,6 +113,23 @@
                     app:layout_constraintTop_toBottomOf="@id/textview_titulo_porcao"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_titulo_categoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categoria"
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_porcao"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_mostra_categoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categoria"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_categoria"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,6 +16,19 @@
         android:layout_width="match_parent"
         android:background="@drawable/gradient"
         android:layout_height="wrap_content"/>
+    <view
+        android:id="@+id/view_confirma_remocao_lista_activity"
+        class="android.widget.LinearLayout"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone">
+        <include layout="@layout/frame_confirmacao_de_remocao"
+            />
+    </view>
 
     <ListView
         android:id="@+id/listview_lista_de_receitas"

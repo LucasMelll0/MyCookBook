@@ -8,12 +8,14 @@ public class Receita implements Serializable {
     private String ingredientes;
     private String modoDePreparo;
     private String porcao;
+    private String categoria;
 
-    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao) {
+    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao, String categoria) {
         this.nome = nome;
         this.ingredientes = ingredientes;
         this.modoDePreparo = modoDePreparo;
         this.porcao = porcao;
+        this.categoria = categoria;
     }
 
     public Receita() {
@@ -68,6 +70,14 @@ public class Receita implements Serializable {
 
     public void setPorcao(String porcao) {
         this.porcao = porcao;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
 }

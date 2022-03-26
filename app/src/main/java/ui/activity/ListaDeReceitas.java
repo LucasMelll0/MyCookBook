@@ -2,6 +2,7 @@ package ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,10 +19,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import dao.ReceitaDAO;
 
-public class ListaDeReceitas extends AppCompatActivity {
+public class ListaDeReceitas extends AppCompatActivity{
 
     private final ReceitaDAO dao = new ReceitaDAO();
     private ArrayAdapter<Receita> adapter;
+    private View confirmacaoDeRemocao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,8 @@ public class ListaDeReceitas extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_receitas_main);
         configuraFabNovaReceita();
         configuraLista();
-        dao.salva(new Receita("Bolo", "ovo e leite", "bata tudo no liquidificador", "2"));
-        dao.salva(new Receita("Torta", "ovo e leite", "bata tudo no liquidificador", "2"));
+        dao.salva(new Receita("Bolo", "ovo e leite", "bata tudo no liquidificador", "2","Bolo"));
+        dao.salva(new Receita("Torta", "ovo e leite", "bata tudo no liquidificador", "2","Torta"));
     }
 
     @Override
@@ -52,12 +54,34 @@ public class ListaDeReceitas extends AppCompatActivity {
             abreFormularioModoEdita.putExtra("receita", receitaEscolhida);
             startActivity(abreFormularioModoEdita);
         }else if(itemId == R.id.activity_lista_receitas_menu_excluir){ // Se for a opção excluir, exclui o item da lista
-            dao.exclui(receitaEscolhida); // Exclui do DAO
-            adapter.remove(receitaEscolhida); // Exclui do Adapter
+            confirmacaoDeRemocao = findViewById(R.id.view_confirma_remocao_lista_activity);
+            confirmacaoDeRemocao.setVisibility(View.VISIBLE);
+            confirguraConfirmacaoDeRemocao(receitaEscolhida);
+
         }
 
 
         return super.onContextItemSelected(item);
+    }
+
+    private void confirguraConfirmacaoDeRemocao(Receita receitaEscolhida) {
+        AppCompatButton botaoNega = findViewById(R.id.button_nega_confirmacao);
+        AppCompatButton botaoAceita = findViewById(R.id.button_aceita_confirmacao);
+
+        botaoNega.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmacaoDeRemocao.setVisibility(View.GONE);
+            }
+        });
+        botaoAceita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dao.exclui(receitaEscolhida); // Exclui do DAO
+                adapter.remove(receitaEscolhida); // Exclui do Adapter
+                confirmacaoDeRemocao.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void configuraFabNovaReceita() {

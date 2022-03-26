@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ public class MostraReceita extends AppCompatActivity {
     private TextView campoIngredientes;
     private TextView campoDescricao;
     private TextView campoPorcao;
+    private TextView campoCategoria;
     private Toolbar toolbar;
     private Receita receita;
 
@@ -45,6 +47,7 @@ public class MostraReceita extends AppCompatActivity {
         campoIngredientes = findViewById(R.id.textview_mostra_ingredientes_receita);
         campoDescricao = findViewById(R.id.textview_mostra_descricao_receita);
         campoPorcao = findViewById(R.id.textview_mostra_porcao);
+        campoCategoria = findViewById(R.id.textview_mostra_categoria);
     }
 
     private void carregaReceita(){
@@ -56,6 +59,7 @@ public class MostraReceita extends AppCompatActivity {
         campoIngredientes.setText(receita.getIngredientes());
         campoDescricao.setText(receita.getModoDePreparo());
         campoPorcao.setText(receita.getPorcao());
+        campoCategoria.setText(receita.getCategoria());
     }
 
     private void mudaToolBar(){
