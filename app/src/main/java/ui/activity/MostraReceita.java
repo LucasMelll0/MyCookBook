@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -33,7 +32,12 @@ public class MostraReceita extends AppCompatActivity {
         mudaToolBar();
         configuraBotaoVoltar();
         configuraBotaoEditar();
+        configuraCategoria();
 
+    }
+
+    private void configuraCategoria() {
+        campoCategoria.setText(receita.getCategoria());
     }
 
     @Override
@@ -42,7 +46,7 @@ public class MostraReceita extends AppCompatActivity {
         carregaReceita();
     }
 
-    private void inicializadorDosCampos(){
+    private void inicializadorDosCampos() {
         campoNome = findViewById(R.id.textview_mostra_nome_receita);
         campoIngredientes = findViewById(R.id.textview_mostra_ingredientes_receita);
         campoDescricao = findViewById(R.id.textview_mostra_descricao_receita);
@@ -50,7 +54,7 @@ public class MostraReceita extends AppCompatActivity {
         campoCategoria = findViewById(R.id.textview_mostra_categoria);
     }
 
-    private void carregaReceita(){
+    private void carregaReceita() {
         Intent dados = getIntent();
 
         receita = (Receita) dados.getSerializableExtra("receita");
@@ -59,16 +63,15 @@ public class MostraReceita extends AppCompatActivity {
         campoIngredientes.setText(receita.getIngredientes());
         campoDescricao.setText(receita.getModoDePreparo());
         campoPorcao.setText(receita.getPorcao());
-        campoCategoria.setText(receita.getCategoria());
     }
 
-    private void mudaToolBar(){
+    private void mudaToolBar() {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
 
     }
 
-    private void configuraBotaoVoltar(){
+    private void configuraBotaoVoltar() {
 
         Button botaoVoltar = findViewById(R.id.button_voltar_lista_de_receitas);
 
@@ -82,7 +85,7 @@ public class MostraReceita extends AppCompatActivity {
 
     }
 
-    private void configuraBotaoEditar(){
+    private void configuraBotaoEditar() {
 
         Button botaoEditar = findViewById(R.id.button_editar_receita);
 

@@ -34,20 +34,6 @@
             app:layout_constraintTop_toTopOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintBottom_toBottomOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintEnd_toEndOf="@id/toolbar_formulario_de_receitas"/>
-        <view
-            android:id="@+id/view_confirma_remocao_formulario_activity"
-            class="android.widget.LinearLayout"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:translationZ="@dimen/cardview_default_elevation"
-            android:visibility="gone">
-            <include layout="@layout/frame_confirmacao_de_remocao"
-                />
-        </view>
 
         <view
             class="android.widget.LinearLayout"
@@ -78,7 +64,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp"
                 android:hint="Nome"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="40"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_ingredientes"
                 android:layout_width="wrap_content"

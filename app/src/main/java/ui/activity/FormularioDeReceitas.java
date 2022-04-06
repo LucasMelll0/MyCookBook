@@ -1,5 +1,6 @@
 package ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 
@@ -25,10 +26,11 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private EditText campoIngredientes;
     private EditText campoDescricao;
     private EditText campoPorcao;
-    private String campoCategoria;
+    private int campoCategoria;
     private Toolbar toolbar;
     private Spinner spinner;
     private View confirmacaoDeRemocao;
+    private String categoria;
     private final ReceitaDAO dao = new ReceitaDAO();
     private Receita receita;
 
@@ -41,8 +43,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
         configuraBotaoSalvar();
         configuraBotaoExcluir();
         configuraToolBar();
-        carregaReceita();
         configuraSpinner();
+        carregaReceita();
 
     }
 
@@ -55,16 +57,15 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Object categoriaSelecionada = adapterView.getItemAtPosition(i);
-                String categoriaTexto = (String) categoriaSelecionada;
-
-                campoCategoria = categoriaTexto;
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                campoCategoria = position;
+                String[] categorias = getResources().getStringArray(R.array.categorias_array);
+                categoria = categorias[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                campoCategoria = "Não definido";
+                campoCategoria = 0;
             }
         });
 
@@ -79,6 +80,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             campoIngredientes.setText(receita.getIngredientes());
             campoDescricao.setText(receita.getModoDePreparo());
             campoPorcao.setText(receita.getPorcao());
+            spinner.setSelection(receita.getPosicaoCategoria());
         } else {
             receita = new Receita();
         }
@@ -105,38 +107,30 @@ public class FormularioDeReceitas extends AppCompatActivity {
         botaoExcluir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                confirmacaoDeRemocao = findViewById(R.id.view_confirma_remocao_formulario_activity);
-                confirmacaoDeRemocao.setVisibility(View.VISIBLE);
-                confirguraConfirmacaoDeRemocao();
+                configuraAlertDialogParaRemocao();
             }
         });
     }
 
-    private void confirguraConfirmacaoDeRemocao() {
-        AppCompatButton botaoNega = findViewById(R.id.button_nega_confirmacao);
-        AppCompatButton botaoAceita = findViewById(R.id.button_aceita_confirmacao);
-
-        botaoNega.setOnClickListener(new View.OnClickListener() {
+    private void configuraAlertDialogParaRemocao() {
+        AlertDialog.Builder confirmacaoDeRemocao = new AlertDialog.Builder(FormularioDeReceitas.this);
+        confirmacaoDeRemocao.setTitle("Excluir Receita");
+        confirmacaoDeRemocao.setMessage("Deseja realmente excluir a receita permanentemente?");
+        confirmacaoDeRemocao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                confirmacaoDeRemocao.setVisibility(View.GONE);
-
-            }
-        });
-        botaoAceita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (receita.temIdValido()) {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(receita.temIdValido()){
                     dao.exclui(receita);
-                    confirmacaoDeRemocao.setVisibility(View.VISIBLE);
                     finish();
-                } else {
-                    confirmacaoDeRemocao.setVisibility(View.VISIBLE);
+                }else{
                     finish();
                 }
             }
         });
+        confirmacaoDeRemocao.setNegativeButton("Cancelar", null);
+        confirmacaoDeRemocao.show();
     }
+
 
     private void inicializadorDosCampos() {
         campoNome = findViewById(R.id.edittext_nome_da_receita);
@@ -154,6 +148,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             startActivity(voltaParaMostraReceita);
         } else {
             dao.salva(receita);
+
         }
         finish();
 
@@ -169,7 +164,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
         receita.setIngredientes(ingredientes);
         receita.setModoDePreparo(descricao);
         receita.setPorcao(porcao);
-        receita.setCategoria(campoCategoria);
+        receita.setPosicaoCategoria(campoCategoria);
+        receita.setCategoria(categoria);
 
     }
 

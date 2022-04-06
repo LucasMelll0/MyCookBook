@@ -3,19 +3,20 @@ package com.example.mycookbook.activity.model;
 import java.io.Serializable;
 
 public class Receita implements Serializable {
+    private  int posicaoCategoria;
+
     private int id = 0;
     private String nome;
     private String ingredientes;
     private String modoDePreparo;
     private String porcao;
     private String categoria;
-
-    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao, String categoria) {
+    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao, int posicaoCategoria) {
         this.nome = nome;
         this.ingredientes = ingredientes;
         this.modoDePreparo = modoDePreparo;
         this.porcao = porcao;
-        this.categoria = categoria;
+        this.posicaoCategoria = posicaoCategoria;
     }
 
     public Receita() {
@@ -30,6 +31,14 @@ public class Receita implements Serializable {
     @Override
     public String toString() {
         return this.nome;
+    }
+
+    public int getPosicaoCategoria() {
+        return posicaoCategoria;
+    }
+
+    public void setPosicaoCategoria(int posicaoCategoria) {
+        this.posicaoCategoria = posicaoCategoria;
     }
 
     public int getId() {
@@ -79,5 +88,4 @@ public class Receita implements Serializable {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
 }

@@ -16,21 +16,8 @@
         android:layout_width="match_parent"
         android:background="@drawable/gradient"
         android:layout_height="wrap_content"/>
-    <view
-        android:id="@+id/view_confirma_remocao_lista_activity"
-        class="android.widget.LinearLayout"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone">
-        <include layout="@layout/frame_confirmacao_de_remocao"
-            />
-    </view>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listview_lista_de_receitas"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_lista_de_receitas"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_nova_receita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +33,11 @@
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_add"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/white"
+        android:textColor="@color/white"
+        android:text="@string/adicionar_receita"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
