@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_nao_tem_receita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="60dp"
+        android:text="@string/text_lista_vazia"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_carinha_triste_sem_receitas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/text_nao_tem_receita"
+        app:layout_constraintBottom_toBottomOf="@id/text_nao_tem_receita"
+        app:layout_constraintStart_toEndOf="@id/text_nao_tem_receita"
+        android:src="@drawable/ic_sad_face"
+        android:layout_marginStart="5dp"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_adicione_receitas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_nao_tem_receita"
+        app:layout_constraintStart_toStartOf="@id/text_nao_tem_receita"
+        app:layout_constraintEnd_toEndOf="@id/text_nao_tem_receita"
+        android:text="@string/text_adicione_receitas_no_botao_abaixo"
+        android:textStyle="italic"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

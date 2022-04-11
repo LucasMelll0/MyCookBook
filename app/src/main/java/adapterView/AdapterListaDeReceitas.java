@@ -18,6 +18,8 @@ import java.util.List;
 import ui.activity.MostraReceita;
 
 public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> implements Serializable {
+
+
     private List<Receita> receitas;
     private int position;
 
@@ -74,9 +76,18 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
     }
 
 
-    public void atualiza(List<Receita> receitas){
+    public void atualiza(List<Receita> receitas, View view_sem_items){
         this.receitas.clear();
         this.receitas.addAll(receitas);
+        this.verificaSeContemItemsNaLista(view_sem_items);
+    }
+
+    public void verificaSeContemItemsNaLista(View view) {
+        if (this.receitas.size() < 1) {
+            view.setVisibility(View.VISIBLE);
+        }else{
+            view.setVisibility(View.GONE);
+        }
     }
 
     public void remove(Receita receitaEscolhida) {
@@ -95,6 +106,7 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
     public void setPosition(int position) {
         this.position = position;
     }
+
 
 
 }

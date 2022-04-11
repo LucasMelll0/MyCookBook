@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MyCookBook</string>
     <string name="adicionar_receita">Adicionar Receita</string>
+    <string name="text_lista_vazia">Não há nenhuma receita guardada</string>
+    <string name="text_adicione_receitas_no_botao_abaixo">Adicione receitas no botão abaixo!</string>
 </resources>

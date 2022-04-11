@@ -146,6 +146,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             Intent voltaParaMostraReceita = new Intent(FormularioDeReceitas.this, MostraReceita.class);
             voltaParaMostraReceita.putExtra("receita", receita);
             startActivity(voltaParaMostraReceita);
+            finish();
         } else {
             dao.salva(receita);
 
