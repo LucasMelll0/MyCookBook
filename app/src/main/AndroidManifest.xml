@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCookBook"
-        android:name="applicationClass.MyCookBookApplication">
+        android:name="com.example.mycookbook.applicationClass.MyCookBookApplication">
         <activity android:name=".activity.FormularioDeReceitas"/>
         <activity android:name=".activity.MostraReceita"/>
         <activity

@@ -1,4 +1,4 @@
-package adapterView;
+package com.example.mycookbook.adapterView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

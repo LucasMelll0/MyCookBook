@@ -1,4 +1,4 @@
-package applicationClass;
+package com.example.mycookbook.applicationClass;
 
 import android.app.Application;
 

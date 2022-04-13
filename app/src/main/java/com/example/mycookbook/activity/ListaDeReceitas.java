@@ -20,7 +20,7 @@ import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import adapterView.AdapterListaDeReceitas;
+import com.example.mycookbook.adapterView.AdapterListaDeReceitas;
 
 public class ListaDeReceitas extends AppCompatActivity {
 
