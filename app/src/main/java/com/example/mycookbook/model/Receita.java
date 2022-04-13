@@ -1,9 +1,9 @@
-package com.example.mycookbook.activity.model;
+package com.example.mycookbook.model;
 
 import java.io.Serializable;
 
 public class Receita implements Serializable {
-    private  int posicaoCategoria;
+
 
     private int id = 0;
     private String nome;
@@ -11,12 +11,13 @@ public class Receita implements Serializable {
     private String modoDePreparo;
     private String porcao;
     private String categoria;
-    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao, int posicaoCategoria) {
+    private  int posicaoCategoria;
+    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao, String categoria) {
         this.nome = nome;
         this.ingredientes = ingredientes;
         this.modoDePreparo = modoDePreparo;
         this.porcao = porcao;
-        this.posicaoCategoria = posicaoCategoria;
+        this.categoria = categoria;
     }
 
     public Receita() {

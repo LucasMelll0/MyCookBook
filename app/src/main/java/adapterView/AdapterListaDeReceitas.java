@@ -2,6 +2,7 @@ package adapterView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mycookbook.R;
-import com.example.mycookbook.activity.model.Receita;
+
 
 import java.io.Serializable;
 import java.util.List;
 
-import ui.activity.MostraReceita;
+import com.example.mycookbook.activity.MostraReceita;
+import com.example.mycookbook.model.Receita;
 
 public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> implements Serializable {
 
@@ -42,6 +44,7 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
             @Override
             public void onClick(View view) {
                 Receita receita = receitas.get(position);
+                Log.i("Id da receita", "" + receita.getId());
                 abreReceitaEscolhida(receita, view);
             }
         });

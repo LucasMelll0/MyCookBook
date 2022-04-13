@@ -1,4 +1,4 @@
-package ui.activity;
+package com.example.mycookbook.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mycookbook.R;
-import com.example.mycookbook.activity.model.Receita;
+import com.example.mycookbook.model.Receita;
 
 public class MostraReceita extends AppCompatActivity {
 
@@ -63,6 +63,7 @@ public class MostraReceita extends AppCompatActivity {
         campoIngredientes.setText(receita.getIngredientes());
         campoDescricao.setText(receita.getModoDePreparo());
         campoPorcao.setText(receita.getPorcao());
+        campoCategoria.setText(receita.getCategoria());
     }
 
     private void mudaToolBar() {

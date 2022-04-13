@@ -1,8 +1,9 @@
-package ui.activity;
+package com.example.mycookbook.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.mycookbook.DataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
-import com.example.mycookbook.activity.model.Receita;
-
-import dao.ReceitaDAO;
+import com.example.mycookbook.dao.ReceitaDAO;
+import com.example.mycookbook.model.Receita;
 
 public class FormularioDeReceitas extends AppCompatActivity {
 
@@ -29,10 +30,10 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private int campoCategoria;
     private Toolbar toolbar;
     private Spinner spinner;
-    private View confirmacaoDeRemocao;
     private String categoria;
     private final ReceitaDAO dao = new ReceitaDAO();
     private Receita receita;
+    private ReceitasDBHelper db = new ReceitasDBHelper(this);
 
 
     @Override
@@ -76,15 +77,27 @@ public class FormularioDeReceitas extends AppCompatActivity {
         if (dados.hasExtra("receita")) {
             toolbar.setTitle("Editando Receita");
             receita = (Receita) dados.getSerializableExtra("receita");
+            Log.i("Veio os Extras?", "Sim" + receita.getId());
             campoNome.setText(receita.getNome());
             campoIngredientes.setText(receita.getIngredientes());
             campoDescricao.setText(receita.getModoDePreparo());
             campoPorcao.setText(receita.getPorcao());
-            spinner.setSelection(receita.getPosicaoCategoria());
-        } else {
-            receita = new Receita();
-        }
+            String[] categorias = getResources().getStringArray(R.array.categorias_array);
+            for (int i = 0; i < categorias.length; i++) {
+                if (receita.getCategoria().equals(categorias[i])) {
+                    spinner.setSelection(i);
+                    break;
+                } else if(i == categorias.length) {
+                    spinner.setSelection(0);
+                }
+            }
+        } else{
+            Log.i("Veio os Extras?", "Não");
+        receita = new Receita();
     }
+    }
+
+
 
     private void configuraToolBar() {
         toolbar = findViewById(R.id.toolbar);
@@ -119,10 +132,10 @@ public class FormularioDeReceitas extends AppCompatActivity {
         confirmacaoDeRemocao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(receita.temIdValido()){
-                    dao.exclui(receita);
+                if (receita.temIdValido()) {
+                    dao.exclui(receita, db);
                     finish();
-                }else{
+                } else {
                     finish();
                 }
             }
@@ -142,13 +155,13 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private void finalizaFormulario() {
         preencheReceita();
         if (receita.temIdValido()) {
-            dao.edita(receita);
+            dao.edita(receita, db);
             Intent voltaParaMostraReceita = new Intent(FormularioDeReceitas.this, MostraReceita.class);
             voltaParaMostraReceita.putExtra("receita", receita);
             startActivity(voltaParaMostraReceita);
             finish();
         } else {
-            dao.salva(receita);
+            dao.salva(receita, db);
 
         }
         finish();
@@ -165,8 +178,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
         receita.setIngredientes(ingredientes);
         receita.setModoDePreparo(descricao);
         receita.setPorcao(porcao);
-        receita.setPosicaoCategoria(campoCategoria);
         receita.setCategoria(categoria);
+        receita.setPosicaoCategoria(campoCategoria);
 
     }
 

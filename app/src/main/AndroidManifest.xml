@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCookBook"
         android:name="applicationClass.MyCookBookApplication">
-        <activity android:name="ui.activity.FormularioDeReceitas"/>
-        <activity android:name="ui.activity.MostraReceita"/>
+        <activity android:name=".activity.FormularioDeReceitas"/>
+        <activity android:name=".activity.MostraReceita"/>
         <activity
-            android:name="ui.activity.ListaDeReceitas"
+            android:name=".activity.ListaDeReceitas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,5 @@
-package ui.activity;
+package com.example.mycookbook.activity;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,12 +14,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mycookbook.DataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
-import com.example.mycookbook.activity.model.Receita;
+import com.example.mycookbook.dao.ReceitaDAO;
+import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import adapterView.AdapterListaDeReceitas;
-import dao.ReceitaDAO;
 
 public class ListaDeReceitas extends AppCompatActivity {
 
@@ -28,6 +28,8 @@ public class ListaDeReceitas extends AppCompatActivity {
     private AdapterListaDeReceitas adapter;
     private RecyclerView listaDeReceitas;
     private View semItemNaLista;
+
+    public ReceitasDBHelper db = new ReceitasDBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class ListaDeReceitas extends AppCompatActivity {
         return new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dao.exclui(receitaEscolhida); // Exclui do DAO
+                dao.exclui(receitaEscolhida, db); // Exclui do DAO
                 adapter.remove(receitaEscolhida); // Exclui do Adapter
                 adapter.notifyItemRemoved(posicao);
                 adapter.verificaSeContemItemsNaLista(semItemNaLista);
@@ -101,7 +103,7 @@ public class ListaDeReceitas extends AppCompatActivity {
     }
 
     private void atualizaReceitas() {
-        adapter.atualiza(dao.todas(), semItemNaLista);
+        adapter.atualiza(dao.todas(db), semItemNaLista);
         adapter.notifyDataSetChanged();
     }
 
@@ -120,10 +122,12 @@ public class ListaDeReceitas extends AppCompatActivity {
 
 
     private void configuraAdapter(RecyclerView listaDeReceitas) {
-        adapter = new AdapterListaDeReceitas(dao.todas());
+        adapter = new AdapterListaDeReceitas(dao.todas(db));
         listaDeReceitas.setAdapter(adapter);
 
     }
+
+
 
 
 }
