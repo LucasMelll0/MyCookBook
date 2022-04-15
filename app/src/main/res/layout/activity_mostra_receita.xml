@@ -52,7 +52,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_mostra_nome_receita"
@@ -71,17 +72,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/textview_mostra_ingredientes_receita"
+                <LinearLayout
+                    android:id="@+id/linearlayout_mostra_ingredientes_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingredientes"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_ingredientes_receita" />
+                    android:orientation="vertical"
+
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_ingredientes_receita" >
+
+
+                </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_titulo_descricao_receita"
-                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_ingredientes_receita"
+                    app:layout_constraintTop_toBottomOf="@id/linearlayout_mostra_ingredientes_receita"
                     android:layout_marginTop="10dp"
                     android:text="Modo de Preparo"
                     android:layout_width="match_parent"

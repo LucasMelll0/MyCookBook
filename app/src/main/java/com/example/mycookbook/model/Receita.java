@@ -1,18 +1,19 @@
 package com.example.mycookbook.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Receita implements Serializable {
 
 
     private int id = 0;
     private String nome;
-    private String ingredientes;
+    private ArrayList<String> ingredientes;
     private String modoDePreparo;
     private String porcao;
     private String categoria;
     private  int posicaoCategoria;
-    public Receita(String nome, String ingredientes, String modoDePreparo, String porcao, String categoria) {
+    public Receita(String nome, ArrayList<String> ingredientes, String modoDePreparo, String porcao, String categoria) {
         this.nome = nome;
         this.ingredientes = ingredientes;
         this.modoDePreparo = modoDePreparo;
@@ -58,11 +59,11 @@ public class Receita implements Serializable {
         this.nome = nome;
     }
 
-    public String getIngredientes() {
+    public ArrayList<String> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(String ingredientes) {
+    public void setIngredientes(ArrayList<String> ingredientes) {
         this.ingredientes = ingredientes;
     }
 

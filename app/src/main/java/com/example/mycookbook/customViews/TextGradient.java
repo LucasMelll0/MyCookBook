@@ -25,7 +25,7 @@ public class TextGradient extends androidx.appcompat.widget.AppCompatTextView {
 
     @Override
     public void setText(CharSequence text, BufferType type) {
-        Shader shader = new LinearGradient(0,0,0, super.getTextSize(), getResources().
+        Shader shader = new LinearGradient(10,0,0, super.getTextSize(), getResources().
                 getColor(R.color.yellow),getResources().getColor(R.color.lightpink), Shader.TileMode.MIRROR);
         super.getPaint().setShader(shader);
         super.setText(text, type);

@@ -87,7 +87,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             receita = (Receita) dados.getSerializableExtra("receita");
             Log.i("Veio os Extras?", "Sim" + receita.getId());
             campoNome.setText(receita.getNome());
-            campoIngredientes.setText(receita.getIngredientes());
+            ingredientes.addAll(receita.getIngredientes());
             campoDescricao.setText(receita.getModoDePreparo());
             campoPorcao.setText(receita.getPorcao());
             String[] categorias = getResources().getStringArray(R.array.categorias_array);
@@ -220,6 +220,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             startActivity(voltaParaMostraReceita);
             finish();
         } else {
+
             dao.salva(receita, db);
 
         }
@@ -229,7 +230,6 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
     private void preencheReceita() {
         String nome = campoNome.getText().toString();
-        String ingredientes = campoIngredientes.getText().toString();
         String descricao = campoDescricao.getText().toString();
         String porcao = campoPorcao.getText().toString();
 
