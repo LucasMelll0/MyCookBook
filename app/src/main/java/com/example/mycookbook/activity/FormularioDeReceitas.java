@@ -9,17 +9,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.Toolbar;
 
-import com.example.mycookbook.DataBase.ReceitasDBHelper;
+import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
+import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.model.Receita;
+
+import java.util.ArrayList;
 
 public class FormularioDeReceitas extends AppCompatActivity {
 
@@ -27,13 +32,16 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private EditText campoIngredientes;
     private EditText campoDescricao;
     private EditText campoPorcao;
+    private TextGradient toolbarText;
+    private LinearLayout linearLayout;
     private int campoCategoria;
-    private Toolbar toolbar;
     private Spinner spinner;
     private String categoria;
     private final ReceitaDAO dao = new ReceitaDAO();
     private Receita receita;
     private ReceitasDBHelper db = new ReceitasDBHelper(this);
+    private ArrayList<String> ingredientes = new ArrayList<>();
+    private int idIngrediente = 0;
 
 
     @Override
@@ -75,7 +83,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private void carregaReceita() {
         Intent dados = getIntent();
         if (dados.hasExtra("receita")) {
-            toolbar.setTitle("Editando Receita");
+            toolbarText.setText("Editando Receita");
             receita = (Receita) dados.getSerializableExtra("receita");
             Log.i("Veio os Extras?", "Sim" + receita.getId());
             campoNome.setText(receita.getNome());
@@ -87,8 +95,6 @@ public class FormularioDeReceitas extends AppCompatActivity {
                 if (receita.getCategoria().equals(categorias[i])) {
                     spinner.setSelection(i);
                     break;
-                } else if(i == categorias.length) {
-                    spinner.setSelection(0);
                 }
             }
         } else{
@@ -100,8 +106,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
 
     private void configuraToolBar() {
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Nova Receita");
+        toolbarText = findViewById(R.id.TextView_toolBar);
+        toolbarText.setText("Nova Receita");
 
     }
 
@@ -150,6 +156,59 @@ public class FormularioDeReceitas extends AppCompatActivity {
         campoIngredientes = findViewById(R.id.edittext_ingredientes_da_receitas);
         campoDescricao = findViewById(R.id.edittext_descricao_da_receitas);
         campoPorcao = findViewById(R.id.edittext_porcao_da_receita);
+        configuraBotaoNovoIngrediente();
+    }
+
+
+
+    private void configuraBotaoNovoIngrediente() {
+        AppCompatImageButton botaoAdicionar = findViewById(R.id.button_adiciona_ingrediente);
+        linearLayout = findViewById(R.id.view_ingredientes);
+        LinearLayout linearHorizontal = new LinearLayout(this);
+        linearHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+
+        botaoAdicionar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                configuraNovoIngrediente();
+
+                Log.i("Testes", "Receita adicionada: " + ingredientes+ " ID ATUAL: " + idIngrediente);
+            }
+        });
+    }
+
+    private void configuraNovoIngrediente() {
+        LinearLayout linearHorizontal = new LinearLayout(FormularioDeReceitas.this);
+        linearHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+        linearHorizontal.setId(idIngrediente);
+        TextView textViewIngrediente = new TextView(FormularioDeReceitas.this);
+        String ingrediente = campoIngredientes.getText().toString();
+        textViewIngrediente.setId(idIngrediente);
+        textViewIngrediente.setText("* " + ingrediente);
+        textViewIngrediente.setTextSize(25);
+        textViewIngrediente.setTextColor(getColor(R.color.black));
+        ImageButton buttonExcluirIngrediente = new ImageButton(FormularioDeReceitas.this);
+        buttonExcluirIngrediente.setId(idIngrediente);
+        buttonExcluirIngrediente.setImageDrawable(getResources().getDrawable(R.drawable.ic_remove));
+        buttonExcluirIngrediente.setBackground(getResources().getDrawable(R.drawable.button_effect));
+        idIngrediente++;
+        ingredientes.add(ingrediente);
+
+        buttonExcluirIngrediente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                linearHorizontal.removeView(textViewIngrediente);
+                linearHorizontal.removeView(view);
+                ingredientes.remove(view.getId());
+                idIngrediente--;
+                Log.i("Testes", "Receita removida: " + ingredientes + " ID ATUAL: " + idIngrediente);
+            }
+        });
+
+        linearLayout.addView(linearHorizontal);
+        linearHorizontal.addView(textViewIngrediente);
+        linearHorizontal.addView(buttonExcluirIngrediente);
     }
 
     private void finalizaFormulario() {

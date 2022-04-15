@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.FormularioDeReceitas"
+    android:fillViewport="true"
 
     >
 
@@ -31,28 +32,20 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_delete"
             android:background="@drawable/button_effect"
+            android:backgroundTint="@color/lightpink"
             app:layout_constraintTop_toTopOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintBottom_toBottomOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintEnd_toEndOf="@id/toolbar_formulario_de_receitas"/>
 
-        <view
-            class="android.widget.LinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/rounded_corner"
-            android:orientation="vertical"
-            android:paddingBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_formulario_de_receitas">
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_nome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:text="Nome da Receita"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_formulario_de_receitas"
+                app:layout_constraintStart_toStartOf="parent"
                 />
 
 
@@ -63,6 +56,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_nome"
                 android:hint="Nome"
                 android:inputType="text"
                 android:maxLength="40"/>
@@ -70,35 +64,68 @@
                 android:id="@+id/text_ingredientes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edittext_nome_da_receita"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
                 android:text="Ingredientes"
                 />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_ingredientes_da_receitas"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Ingredientes"
+                app:layout_constraintTop_toBottomOf="@id/text_ingredientes"
+                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/ingredientes"
                 android:inputType="textMultiLine"
                 android:maxLines="8"
                 android:minHeight="50dp" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/button_adiciona_ingrediente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/edittext_ingredientes_da_receitas"
+                app:layout_constraintBottom_toBottomOf="@id/edittext_ingredientes_da_receitas"
+                app:layout_constraintStart_toEndOf="@id/edittext_ingredientes_da_receitas"
+                android:src="@drawable/ic_add"
+                android:translationZ="@dimen/cardview_default_elevation"
+                android:background="@drawable/button_effect"
+                android:tint="@color/black"
+                />
+
+        <LinearLayout
+            android:id="@+id/view_ingredientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/edittext_ingredientes_da_receitas"
+            android:layout_marginStart="10dp">
+
+
+        </LinearLayout>
+
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_descricao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/view_ingredientes"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
-                android:text="Modo de Preparo"
+                android:text="@string/modo_de_preparo"
                 />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_descricao_da_receitas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/text_descricao"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Descrição"
+                android:hint="@string/descricao"
                 android:inputType="textMultiLine"
                 android:maxLines="15"
                 android:minHeight="50dp" />
@@ -106,6 +133,8 @@
                 android:id="@+id/text_porcao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edittext_descricao_da_receitas"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
                 android:text="Porção"
                 />
@@ -114,6 +143,8 @@
                 android:id="@+id/edittext_porcao_da_receita"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@id/text_porcao"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
                 android:hint="porção"
@@ -122,6 +153,8 @@
                 android:id="@+id/text_categoria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/edittext_porcao_da_receita"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
                 android:text="Categoria"
                 />
@@ -130,21 +163,22 @@
                 android:id="@+id/spinner_categoria"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/text_categoria"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="10dp"
                 />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_salvar_receita"
-                android:layout_width="150dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/imagebutton_effect"
                 android:text="Salvar Receita"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-
-        </view>
+                app:layout_constraintTop_toBottomOf="@id/spinner_categoria"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

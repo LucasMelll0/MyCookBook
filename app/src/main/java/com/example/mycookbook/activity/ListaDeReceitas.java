@@ -14,8 +14,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mycookbook.DataBase.ReceitasDBHelper;
+import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
+import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -37,6 +38,7 @@ public class ListaDeReceitas extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_receitas_main);
         configuraFabNovaReceita();
         configuraLista();
+        // configuraTextViewDaToolBarGradient();
 
     }
 
@@ -109,7 +111,7 @@ public class ListaDeReceitas extends AppCompatActivity {
 
 
     private void configuraLista() {
-        listaDeReceitas = findViewById(R.id.listview_lista_de_receitas);
+        listaDeReceitas = findViewById(R.id.recyclerview_lista_de_receitas);
         semItemNaLista = findViewById(R.id.view_sem_item_na_lista);
 
         RecyclerView.LayoutManager layoutReceitas = new LinearLayoutManager(getApplicationContext());
@@ -124,6 +126,12 @@ public class ListaDeReceitas extends AppCompatActivity {
     private void configuraAdapter(RecyclerView listaDeReceitas) {
         adapter = new AdapterListaDeReceitas(dao.todas(db));
         listaDeReceitas.setAdapter(adapter);
+
+    }
+
+    public void configuraTextViewDaToolBarGradient(){
+        TextGradient textView = findViewById(R.id.TextView_toolBar);
+
 
     }
 

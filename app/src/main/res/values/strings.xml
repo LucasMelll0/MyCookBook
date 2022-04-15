@@ -3,4 +3,9 @@
     <string name="adicionar_receita">Adicionar Receita</string>
     <string name="text_lista_vazia">Não há nenhuma receita guardada</string>
     <string name="text_adicione_receitas_no_botao_abaixo">Adicione receitas no botão abaixo!</string>
+    <string name="categoria_item_lista">Categoria:</string>
+    <string name="testes">Olá</string>
+    <string name="modo_de_preparo">Modo de Preparo</string>
+    <string name="ingredientes">Ingredientes</string>
+    <string name="descricao">Descrição</string>
 </resources>

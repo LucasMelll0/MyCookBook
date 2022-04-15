@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".activity.ListaDeReceitas">
 
-    <androidx.appcompat.widget.Toolbar
-        app:title="Minhas Receitas"
-        app:titleTextColor="@color/white"
+    <include
         android:id="@+id/toolbar_lista_de_receitas"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        layout="@layout/frame_tool_bar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/gradient"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Nova Receita"
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listview_lista_de_receitas"
+        android:id="@+id/recyclerview_lista_de_receitas"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_lista_de_receitas"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

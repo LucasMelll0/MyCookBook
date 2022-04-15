@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.mycookbook.R;
+import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.model.Receita;
 
 public class MostraReceita extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class MostraReceita extends AppCompatActivity {
     private TextView campoDescricao;
     private TextView campoPorcao;
     private TextView campoCategoria;
-    private Toolbar toolbar;
+    private TextGradient toolbar;
     private Receita receita;
 
     @Override
@@ -67,8 +67,9 @@ public class MostraReceita extends AppCompatActivity {
     }
 
     private void mudaToolBar() {
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar = findViewById(R.id.TextView_toolBar);
+        toolbar.setText("");
+
 
     }
 

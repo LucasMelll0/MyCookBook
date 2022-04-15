@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
-import com.example.mycookbook.DataBase.ReceitasDBHelper;
+import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
 
 import java.util.ArrayList;

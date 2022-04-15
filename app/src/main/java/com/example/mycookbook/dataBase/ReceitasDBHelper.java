@@ -1,4 +1,4 @@
-package com.example.mycookbook.DataBase;
+package com.example.mycookbook.dataBase;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +25,11 @@ public class ReceitasDBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS receitas(id INTEGER  PRIMARY KEY AUTOINCREMENT,nome VARCHAR, ingredientes VARCHAR, modoDePreparo VARCHAR, porcao VARCHAR, categoria VARCHAR)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "receitas(id INTEGER  PRIMARY KEY AUTOINCREMENT,nome VARCHAR, ingredientes VARCHAR, modoDePreparo VARCHAR, porcao VARCHAR, categoria VARCHAR)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " +
+                "ingredientes (id_ingrediente INTEGER " +
+                "PRIMARY KEY AUTOINCREMENT, ingrediente VARCHAR,id_receita INTEGER,  CONSTRAINT fk_ingrediente_receita FOREIGN KEY (id_receita) REFERENCES receitas (id) )");
     }
 
 

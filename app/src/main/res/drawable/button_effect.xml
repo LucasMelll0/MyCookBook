@@ -2,26 +2,27 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/transparent"/>
-            <size android:width="@dimen/cardview_default_elevation" android:height="@dimen/cardview_default_elevation"/>
-            <corners android:radius="50dp"/>
+            <solid android:color="@color/transparent" />
+            <size android:width="@dimen/cardview_default_elevation" android:height="@dimen/cardview_default_elevation" />
+            <corners android:radius="50dp" />
         </shape>
     </item>
     <item android:state_focused="true">
         <shape>
-            <solid android:color="@android:color/transparent"/>
-            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp"/>
+            <solid android:color="@android:color/transparent" />
+            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
         </shape>
     </item>
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="@android:color/transparent"/>
-            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp"/>
+            <solid android:color="@android:color/transparent" />
+            <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
         </shape>
     </item>
     <item>
         <shape>
             <solid android:color="@android:color/transparent" />
+
             <padding android:bottom="3dp" android:left="3dp" android:right="3dp" android:top="3dp" />
         </shape>
     </item>
