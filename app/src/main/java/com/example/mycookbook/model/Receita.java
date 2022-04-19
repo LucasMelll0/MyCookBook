@@ -12,7 +12,12 @@ public class Receita implements Serializable {
     private String modoDePreparo;
     private String porcao;
     private String categoria;
-    private  int posicaoCategoria;
+    private int posicaoCategoria;
+
+
+
+    private String imagemReceita;
+
     public Receita(String nome, ArrayList<String> ingredientes, String modoDePreparo, String porcao, String categoria) {
         this.nome = nome;
         this.ingredientes = ingredientes;
@@ -90,4 +95,14 @@ public class Receita implements Serializable {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    public String getImagemReceita() {
+        return imagemReceita;
+    }
+
+    public void setImagemReceita(String imagemReceita) {
+        this.imagemReceita = imagemReceita;
+    }
+
+
 }

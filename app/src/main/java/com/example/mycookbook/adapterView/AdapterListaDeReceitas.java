@@ -45,6 +45,7 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
             public void onClick(View view) {
                 Receita receita = receitas.get(position);
                 Log.i("Id da receita", "" + receita.getId());
+                Log.i("Testes", "onClick: " + receita.getImagemReceita());
                 abreReceitaEscolhida(receita, view);
             }
         });

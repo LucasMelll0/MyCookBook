@@ -1,5 +1,6 @@
 package com.example.mycookbook.dataBase;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,13 +19,14 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
 
     public ReceitasDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS receitas");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS ingredientes");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " +
-                "receitas(id_receita INTEGER  PRIMARY KEY AUTOINCREMENT,nome VARCHAR, modoDePreparo VARCHAR, porcao VARCHAR, categoria VARCHAR)");
+                "receitas(id_receita INTEGER  PRIMARY KEY AUTOINCREMENT,nome VARCHAR,imagem String, modoDePreparo VARCHAR, porcao VARCHAR, categoria VARCHAR)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " +
                 "ingredientes (id_ingrediente INTEGER " +
                 "PRIMARY KEY AUTOINCREMENT, ingrediente VARCHAR,id_receita INTEGER,  CONSTRAINT fk_ingrediente_receita FOREIGN KEY (id_receita) REFERENCES receitas (id_receita) )");
@@ -45,15 +47,15 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
     public void insereReceitaDB(Receita receita) {
         try {
             db = getWritableDatabase();
-            String nome = receita.getNome();
-            ArrayList<String> ingredientes = receita.getIngredientes();
-            String modoDePreparo = receita.getModoDePreparo();
-            String porcao = receita.getPorcao();
-            String categoria = receita.getCategoria();
 
-            db.execSQL("INSERT " +
-                    "INTO receitas(nome, modoDePreparo, porcao, categoria) " +
-                    "VALUES ('" + nome + "','" + modoDePreparo + "','" + porcao + "','" + categoria + "')");
+            ContentValues dados = new ContentValues();
+            dados.put("nome", receita.getNome());
+            dados.put("imagem", receita.getImagemReceita());
+            dados.put("modoDePreparo", receita.getModoDePreparo());
+            dados.put("porcao", receita.getPorcao());
+            dados.put("categoria", receita.getCategoria());
+            db.insert("receitas", null, dados);
+            ArrayList<String> ingredientes = receita.getIngredientes();
 
 
             String consultaUltimo = "SELECT id_receita FROM receitas WHERE id_receita = (SELECT MAX(id_receita) FROM receitas)";
@@ -64,8 +66,10 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
             int idUltimaReceita = cursor.getInt(indexID);
 
             for (int i = 0; i < ingredientes.size(); i++) {
-
-                db.execSQL("INSERT INTO ingredientes(ingrediente, id_receita) VALUES('" + ingredientes.get(i) + "'," + idUltimaReceita + "  )");
+                ContentValues ingredientesReceita = new ContentValues();
+                ingredientesReceita.put("ingrediente", ingredientes.get(i));
+                ingredientesReceita.put("id_receita", idUltimaReceita);
+                db.insert("ingredientes", null, ingredientesReceita);
             }
 
             db.close();
@@ -84,10 +88,11 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
 
         try {
             db = getReadableDatabase();
-            String consulta = "SELECT id_receita, nome, modoDePreparo, porcao, categoria FROM receitas";
+            String consulta = "SELECT id_receita, nome, imagem, modoDePreparo, porcao, categoria FROM receitas";
             Cursor cursor = db.rawQuery(consulta, null);
             int indexID = cursor.getColumnIndex("id_receita");
             int indexNome = cursor.getColumnIndex("nome");
+            int indexImagem = cursor.getColumnIndex("imagem");
             int indexModoDePreparo = cursor.getColumnIndex("modoDePreparo");
             int indexPorcao = cursor.getColumnIndex("porcao");
             int indexCategoria = cursor.getColumnIndex("categoria");
@@ -97,12 +102,14 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(indexID);
                 String nome = cursor.getString(indexNome);
                 String modoDePreparo = cursor.getString(indexModoDePreparo);
+                String imagem = cursor.getString(indexImagem);
                 String porcao = cursor.getString(indexPorcao);
                 String categoria = cursor.getString(indexCategoria);
                 ArrayList<String> ingredientes = getIngredientesDaReceitaPorID(id);
 
                 Receita receita = new Receita(nome, ingredientes, modoDePreparo, porcao, categoria);
                 receita.setId(id);
+                receita.setImagemReceita(imagem);
 
                 receitas.add(receita);
                 cursor.moveToNext();

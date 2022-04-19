@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,27 +21,25 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.widget.ImageViewCompat;
 
-import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
 import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.dao.ReceitaDAO;
+import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class FormularioDeReceitas extends AppCompatActivity {
 
+    private String imagemReceitaConvertidaParaString;
     private EditText campoNome;
     private EditText campoIngredientes;
     private EditText campoDescricao;
@@ -68,6 +68,12 @@ public class FormularioDeReceitas extends AppCompatActivity {
         configuraBotaoAdicionarImagem();
         carregaReceita();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("Testes", "onResume: " + imagemReceitaConvertidaParaString);
     }
 
     private void configuraBotaoAdicionarImagem() {
@@ -308,6 +314,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
         String descricao = campoDescricao.getText().toString();
         String porcao = campoPorcao.getText().toString();
 
+
+        receita.setImagemReceita(imagemReceitaConvertidaParaString);
         receita.setNome(nome);
         receita.setIngredientes(ingredientes);
         receita.setModoDePreparo(descricao);
@@ -320,15 +328,48 @@ public class FormularioDeReceitas extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent dados) {
         super.onActivityResult(requestCode, resultCode, dados);
         if(requestCode == 1){
-            try {
-                Bitmap fotoCapturada = (Bitmap) dados.getExtras().get("data");
-                AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
-                imagemReceita.setImageBitmap(fotoCapturada);
-                Log.i("Testes", "Adicionar imagem com a camera: RODOU ");
+            if(resultCode == RESULT_OK){
+                try {
+                    Bitmap fotoCapturada = (Bitmap) dados.getExtras().get("data");
+                    AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
+                    imagemReceita.setImageBitmap(fotoCapturada);
 
-            }catch (Exception e){
-                e.printStackTrace();
-                Log.i("Testes", "Adicionar imagem com a camera: NÃO RODOU ");
+                    byte[] imagemEmBytes;
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    fotoCapturada.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+                    imagemEmBytes = stream.toByteArray();
+                    imagemReceitaConvertidaParaString = Base64.encodeToString(imagemEmBytes, Base64.DEFAULT);
+
+
+                    Log.i("Testes", "Adicionar imagem com a camera: RODOU " + imagemReceitaConvertidaParaString);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Log.i("Testes", "Adicionar imagem com a camera: NÃO RODOU ");
+                }
+            }
+
+        }else if(requestCode == 2){
+            if (resultCode == RESULT_OK){
+                try {
+                    Uri imagemUri = dados.getData();
+                    Bitmap imagemGaleria = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imagemUri);
+                    AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
+                    imagemReceita.setImageBitmap(imagemGaleria);
+
+
+                    byte[] imagemEmbytes;
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imagemGaleria.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+                    imagemEmbytes = stream.toByteArray();
+                    imagemReceitaConvertidaParaString = Base64.encodeToString(imagemEmbytes, Base64.DEFAULT);
+
+                    Log.i("Testes", "Adicionar imagem com a Galeria: RODOU ");
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Log.i("Testes", "Adicionar imagem com a Galeria: NÃO RODOU ");
+                }
             }
         }
     }

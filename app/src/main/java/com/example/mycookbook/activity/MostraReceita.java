@@ -1,7 +1,10 @@
 package com.example.mycookbook.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.example.mycookbook.R;
 import com.example.mycookbook.customViews.TextGradient;
@@ -62,10 +66,19 @@ public class MostraReceita extends AppCompatActivity {
         Intent dados = getIntent();
         receita = (Receita) dados.getSerializableExtra("receita");
         carregaIngredientes();
+        carregaImagem();
         campoNome.setText(receita.getNome());
         campoDescricao.setText(receita.getModoDePreparo());
         campoPorcao.setText(receita.getPorcao());
         campoCategoria.setText(receita.getCategoria());
+    }
+
+    private void carregaImagem() {
+        AppCompatImageView imagemReceita = findViewById(R.id.imageview_mostra_receita);
+        byte[] imagemEmBytes = Base64.decode(receita.getImagemReceita(), Base64.DEFAULT);
+        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0 , imagemEmBytes.length);
+        imagemReceita.setImageBitmap(imagemDecodificada);
+
     }
 
     private void carregaIngredientes() {
