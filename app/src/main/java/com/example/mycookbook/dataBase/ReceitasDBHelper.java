@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.model.Receita;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "DB_RECEITAS";
     private static SQLiteDatabase db;
-    private ReceitaDAO dao = new ReceitaDAO();
 
     public ReceitasDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -70,7 +68,7 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
                 db.execSQL("INSERT INTO ingredientes(ingrediente, id_receita) VALUES('" + ingredientes.get(i) + "'," + idUltimaReceita + "  )");
             }
 
-
+            db.close();
             Log.i("Inseriu no banco de dados?", "SIM");
 
         } catch (Exception e) {
@@ -81,10 +79,11 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
 
 
     public List<Receita> todasReceitas() {
-        db = getReadableDatabase();
+
         List<Receita> receitas = new ArrayList<>();
 
         try {
+            db = getReadableDatabase();
             String consulta = "SELECT id_receita, nome, modoDePreparo, porcao, categoria FROM receitas";
             Cursor cursor = db.rawQuery(consulta, null);
             int indexID = cursor.getColumnIndex("id_receita");
@@ -100,7 +99,7 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
                 String modoDePreparo = cursor.getString(indexModoDePreparo);
                 String porcao = cursor.getString(indexPorcao);
                 String categoria = cursor.getString(indexCategoria);
-                ArrayList<String> ingredientes = pegaIngredientesDaReceitaPorID(id);
+                ArrayList<String> ingredientes = getIngredientesDaReceitaPorID(id);
 
                 Receita receita = new Receita(nome, ingredientes, modoDePreparo, porcao, categoria);
                 receita.setId(id);
@@ -110,18 +109,20 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
 
 
             }
-            Log.i("Rodou o Try do insereTodasAsReceitasDoDB?", "SIM");
+            Log.i("Testes", "todasReceitas: RODOU");
+            db.close();
             return receitas;
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i("Rodou o Try do insereTodasAsReceitasDoDB?", "NÃO");
+            Log.i("Testes", "todasReceitas: NÃO RODOU");
+            db.close();
             return receitas;
         }
 
     }
 
-    private ArrayList<String> pegaIngredientesDaReceitaPorID(int id) {
+    private ArrayList<String> getIngredientesDaReceitaPorID(int id) {
         db = getReadableDatabase();
         ArrayList<String> ingredientes = new ArrayList<>();
         try {
@@ -140,6 +141,7 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
             Log.i("Testes", "pegaIngredientesDaReceitaPorID: NÃO PEGOU");
             e.printStackTrace();
             return ingredientes;
+
         }
     }
 
@@ -157,18 +159,18 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
             int receitaID = cursor.getInt(indexID);
             String nome = cursor.getString(indexNome);
-            ArrayList<String> ingredientes = pegaIngredientesDaReceitaPorID(receitaID);
+            ArrayList<String> ingredientes = getIngredientesDaReceitaPorID(receitaID);
             String modoDePreparo = cursor.getString(indexModoDePreparo);
             String porcao = cursor.getString(indexPorcao);
             String categoria = cursor.getString(indexCategoria);
 
             Receita receita = new Receita(nome, ingredientes, modoDePreparo, porcao, categoria);
             receita.setId(receitaID);
-            Log.i("Pegou a receita?", "Sim");
-            return receita;
+            Log.i("Testes", "getReceitaPorID: RODOU");
 
+            return receita;
         } catch (Exception e) {
-            Log.i("Pegou a receita?", "Não");
+            Log.i("Testes", "getReceitaPorID: NÃO RODOU");
             e.printStackTrace();
             return new Receita();
         }
@@ -178,7 +180,6 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
         db = getWritableDatabase();
         try {
             String nome = receita.getNome();
-            ArrayList<String> ingredientes = receita.getIngredientes();
             String modoDePreparo = receita.getModoDePreparo();
             String porcao = receita.getPorcao();
             String categoria = receita.getCategoria();
@@ -188,6 +189,9 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
                     "porcao = '" + porcao + "', " +
                     "categoria = '" + categoria + "' WHERE id_receita = " + ID);
 
+            setIngredientesPorID(ID, receita);
+            db.close();
+
             Log.i("Testes", "Editou a receita? SIM");
         } catch (Exception e) {
             Log.i("Testes", "Editou a receita? NÃO");
@@ -195,11 +199,24 @@ public class ReceitasDBHelper extends SQLiteOpenHelper {
         }
     }
 
+    private void setIngredientesPorID(int ID, Receita receita) {
+        db = getWritableDatabase();
+        db.execSQL("DELETE FROM ingredientes WHERE id_receita = " + ID);
+
+        ArrayList<String> ingredientes = receita.getIngredientes();
+
+        for (int i = 0; i < ingredientes.size(); i++) {
+            db.execSQL("INSERT INTO ingredientes(ingrediente, id_receita) VALUES ('"+ ingredientes.get(i) +"', "+ ID +")");
+        }
+
+    }
+
     public void deletaReceitaDB(int ID) {
         db = getWritableDatabase();
         try {
 
-            db.execSQL("DELETE FROM receitas WHERE id = " + ID);
+            db.execSQL("DELETE FROM receitas WHERE id_receita = " + ID);
+            db.execSQL("DELETE FROM ingredientes WHERE id_receita = " + ID);
             Log.i("Testes", "Deletou a receita? SIM");
         } catch (Exception e) {
             Log.i("Testes", "Deletou a receita? NÃO");

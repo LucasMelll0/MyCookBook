@@ -38,7 +38,6 @@ public class ListaDeReceitas extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_receitas_main);
         configuraFabNovaReceita();
         configuraLista();
-        // configuraTextViewDaToolBarGradient();
 
     }
 
@@ -129,11 +128,6 @@ public class ListaDeReceitas extends AppCompatActivity {
 
     }
 
-    public void configuraTextViewDaToolBarGradient(){
-        TextGradient textView = findViewById(R.id.TextView_toolBar);
-
-
-    }
 
 
 

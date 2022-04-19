@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,7 +13,7 @@
 
         <include
             android:id="@+id/toolbar_mostra_receita"
-            layout="@layout/frame_tool_bar"/>
+            layout="@layout/frame_tool_bar" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_voltar_lista_de_receitas"
@@ -24,6 +25,7 @@
             app:layout_constraintBottom_toBottomOf="@id/toolbar_mostra_receita"
             app:layout_constraintStart_toStartOf="@id/toolbar_mostra_receita"
             app:layout_constraintTop_toTopOf="@id/toolbar_mostra_receita" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_editar_receita"
             style="@android:style/Animation"
@@ -53,50 +55,47 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:paddingStart="5dp"
+                android:paddingBottom="5dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_mostra_nome_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nome da Receita"
+                    tools:text="Nome da Receita"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_titulo_ingredientes_receita"
-                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_nome_receita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Ingredientes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_nome_receita" />
 
                 <LinearLayout
                     android:id="@+id/linearlayout_mostra_ingredientes_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-
-                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_ingredientes_receita" >
-
-
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_ingredientes_receita">
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_titulo_descricao_receita"
-                    app:layout_constraintTop_toBottomOf="@id/linearlayout_mostra_ingredientes_receita"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Modo de Preparo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    app:layout_constraintTop_toBottomOf="@id/linearlayout_mostra_ingredientes_receita" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_mostra_descricao_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:text="Descrição"
+                    tools:text="Descrição"
                     android:textSize="20sp"
                     app:layout_constraintTop_toBottomOf="@id/textview_titulo_descricao_receita" />
 
@@ -105,35 +104,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Rendimento"
-                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_descricao_receita"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_descricao_receita" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_mostra_porcao"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Porção"
+                    tools:text="porção"
                     android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_porcao"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_porcao" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/porcoes_mostra_receita"
+                    app:layout_constraintBottom_toBottomOf="@id/textview_mostra_porcao"
+                    app:layout_constraintStart_toEndOf="@id/textview_mostra_porcao"
+                    app:layout_constraintTop_toTopOf="@+id/textview_mostra_porcao" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_titulo_categoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Categoria"
-                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_porcao"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/textview_mostra_porcao" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textview_mostra_categoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Categoria"
                     android:textSize="20sp"
-                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_categoria"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/textview_titulo_categoria" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
