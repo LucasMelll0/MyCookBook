@@ -65,7 +65,7 @@ public class ListaDeReceitas extends AppCompatActivity {
     private void configuraAlertDialogParaRemocao(int posicao, Receita receitaEscolhida) {
         AlertDialog.Builder confirmacaoDeRemocao = new AlertDialog.Builder(this);
         confirmacaoDeRemocao.setTitle("Excluir Receita");
-        confirmacaoDeRemocao.setMessage("A receita sera excluida permanentemente, Deseja mesmo excluir?");
+        confirmacaoDeRemocao.setMessage("Deseja realmente excluir a receita permanentemente?");
         confirmacaoDeRemocao.setPositiveButton("Sim", confirmaExclusao(posicao, receitaEscolhida))
                 .setNegativeButton("Cancelar", null);
         confirmacaoDeRemocao.show();

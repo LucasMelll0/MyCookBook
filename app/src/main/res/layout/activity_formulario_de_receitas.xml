@@ -37,6 +37,25 @@
             app:layout_constraintBottom_toBottomOf="@id/toolbar_formulario_de_receitas"
             app:layout_constraintEnd_toEndOf="@id/toolbar_formulario_de_receitas"/>
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_receita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="300dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_formulario_de_receitas"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_adicionar_imagem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/imageview_receita"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/button_escolher_imagem"
+            android:padding="10dp"
+            android:background="@drawable/imagebutton_effect"
+            android:backgroundTint="@color/lightpink"/>
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_nome"
@@ -44,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:text="Nome da Receita"
-                app:layout_constraintTop_toBottomOf="@id/toolbar_formulario_de_receitas"
+                app:layout_constraintTop_toBottomOf="@id/button_adicionar_imagem"
                 app:layout_constraintStart_toStartOf="parent"
                 />
 

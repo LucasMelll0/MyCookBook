@@ -1,8 +1,12 @@
 package com.example.mycookbook.activity;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,9 +19,16 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.widget.ImageViewCompat;
 
 import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
@@ -54,9 +65,55 @@ public class FormularioDeReceitas extends AppCompatActivity {
         configuraBotaoExcluir();
         configuraToolBar();
         configuraSpinner();
+        configuraBotaoAdicionarImagem();
         carregaReceita();
 
     }
+
+    private void configuraBotaoAdicionarImagem() {
+        AppCompatButton botaoImagem = findViewById(R.id.button_adicionar_imagem);
+        botaoImagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                configuraAlertDialogParaEscolherImagem();
+
+
+            }
+        });
+    }
+
+    private void configuraAlertDialogParaEscolherImagem() {
+        AlertDialog.Builder escolherImagem = new AlertDialog.Builder(FormularioDeReceitas.this);
+        escolherImagem.setTitle("Como você deseja adicionar a imagem?");
+        escolherImagem.setPositiveButton("TIRAR FOTO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent abreCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(FormularioDeReceitas.this, new String[]{Manifest.permission.CAMERA}, 1);
+                }else{
+                    startActivityForResult(abreCamera, 1);
+                }
+            }
+        });
+        escolherImagem.setNegativeButton("ESCOLHER DA GALERIA", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent abreGaleria = new Intent(Intent.ACTION_GET_CONTENT);
+                abreGaleria.setType("image/*");
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(FormularioDeReceitas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+                }else{
+                    startActivityForResult(abreGaleria, 2);
+                }
+            }
+        });
+        escolherImagem.show();
+    }
+
+
+
 
     private void configuraSpinner() {
         spinner = findViewById(R.id.spinner_categoria);
@@ -258,6 +315,22 @@ public class FormularioDeReceitas extends AppCompatActivity {
         receita.setCategoria(categoria);
         receita.setPosicaoCategoria(campoCategoria);
 
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent dados) {
+        super.onActivityResult(requestCode, resultCode, dados);
+        if(requestCode == 1){
+            try {
+                Bitmap fotoCapturada = (Bitmap) dados.getExtras().get("data");
+                AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
+                imagemReceita.setImageBitmap(fotoCapturada);
+                Log.i("Testes", "Adicionar imagem com a camera: RODOU ");
+
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.i("Testes", "Adicionar imagem com a camera: NÃO RODOU ");
+            }
+        }
     }
 
 }

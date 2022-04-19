@@ -9,4 +9,5 @@
     <string name="ingredientes">Ingredientes</string>
     <string name="descricao">Descrição</string>
     <string name="porcoes_mostra_receita">Porções</string>
+    <string name="button_escolher_imagem">Escolher imagem</string>
 </resources>
