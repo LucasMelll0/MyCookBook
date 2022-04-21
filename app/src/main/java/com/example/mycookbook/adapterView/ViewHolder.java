@@ -4,6 +4,7 @@ import android.view.ContextMenu;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,12 +13,17 @@ import com.example.mycookbook.R;
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     final AppCompatTextView nome;
     final AppCompatTextView categoria;
+
+
+
+    final AppCompatImageView imagem;
     final LinearLayout base;
 
 
     public ViewHolder(View view) {
         super(view);
         base = view.findViewById(R.id.item_list_raiz);
+        imagem = view.findViewById(R.id.imagem_item_receita);
         nome = view.findViewById(R.id.textview_nome_da_receita);
         categoria = view.findViewById(R.id.textview_categoria_da_receita);
         view.setOnCreateContextMenuListener(this);
@@ -43,6 +49,10 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
 
     public AppCompatTextView getCategoria() {
         return categoria;
+    }
+
+    public AppCompatImageView getImagem() {
+        return imagem;
     }
 
 }

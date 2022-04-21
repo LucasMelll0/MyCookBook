@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.R;
-import com.example.mycookbook.customViews.TextGradient;
+import com.example.mycookbook.adapterView.AdapterListaDeReceitas;
 import com.example.mycookbook.dao.ReceitaDAO;
+import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-
-import com.example.mycookbook.adapterView.AdapterListaDeReceitas;
 
 public class ListaDeReceitas extends AppCompatActivity {
 
@@ -38,6 +36,7 @@ public class ListaDeReceitas extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_receitas_main);
         configuraFabNovaReceita();
         configuraLista();
+
 
     }
 
@@ -127,9 +126,6 @@ public class ListaDeReceitas extends AppCompatActivity {
         listaDeReceitas.setAdapter(adapter);
 
     }
-
-
-
 
 
 }

@@ -5,10 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -28,18 +31,21 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.mycookbook.R;
 import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.dataBase.ReceitasDBHelper;
+import com.example.mycookbook.imageCompressor.ImageCompressor;
 import com.example.mycookbook.model.Receita;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class FormularioDeReceitas extends AppCompatActivity {
 
-    private String imagemReceitaConvertidaParaString;
+    private byte[] imagemEmBytes;
     private EditText campoNome;
     private EditText campoIngredientes;
     private EditText campoDescricao;
@@ -73,7 +79,6 @@ public class FormularioDeReceitas extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("Testes", "onResume: " + imagemReceitaConvertidaParaString);
     }
 
     private void configuraBotaoAdicionarImagem() {
@@ -104,13 +109,14 @@ public class FormularioDeReceitas extends AppCompatActivity {
             }
         });
         escolherImagem.setNegativeButton("ESCOLHER DA GALERIA", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.R)
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent abreGaleria = new Intent(Intent.ACTION_GET_CONTENT);
+                Intent abreGaleria = new Intent(Intent.ACTION_PICK);
                 abreGaleria.setType("image/*");
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(FormularioDeReceitas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
-                }else{
+                } else{
                     startActivityForResult(abreGaleria, 2);
                 }
             }
@@ -151,6 +157,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             receita = (Receita) dados.getSerializableExtra("receita");
             Log.i("Veio os Extras?", "Sim " + receita.getId());
             campoNome.setText(receita.getNome());
+            carregaImagem();
             campoDescricao.setText(receita.getModoDePreparo());
             campoPorcao.setText(receita.getPorcao());
             carregaIngredientes();
@@ -165,6 +172,13 @@ public class FormularioDeReceitas extends AppCompatActivity {
             Log.i("Veio os Extras?", "Não");
         receita = new Receita();
     }
+    }
+
+    private void carregaImagem() {
+        imagemEmBytes = receita.getImagemReceita();
+        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
+        AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
+        Glide.with(this).load(imagemDecodificada).into(imagemReceita);
     }
 
     private void carregaIngredientes() {
@@ -315,7 +329,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
         String porcao = campoPorcao.getText().toString();
 
 
-        receita.setImagemReceita(imagemReceitaConvertidaParaString);
+        receita.setImagemReceita(imagemEmBytes);
         receita.setNome(nome);
         receita.setIngredientes(ingredientes);
         receita.setModoDePreparo(descricao);
@@ -332,16 +346,14 @@ public class FormularioDeReceitas extends AppCompatActivity {
                 try {
                     Bitmap fotoCapturada = (Bitmap) dados.getExtras().get("data");
                     AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
-                    imagemReceita.setImageBitmap(fotoCapturada);
+                    Glide.with(this).load(fotoCapturada).into(imagemReceita);
 
-                    byte[] imagemEmBytes;
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    fotoCapturada.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+                    fotoCapturada.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     imagemEmBytes = stream.toByteArray();
-                    imagemReceitaConvertidaParaString = Base64.encodeToString(imagemEmBytes, Base64.DEFAULT);
 
 
-                    Log.i("Testes", "Adicionar imagem com a camera: RODOU " + imagemReceitaConvertidaParaString);
+                    Log.i("Testes", "Adicionar imagem com a camera: RODOU ");
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -352,17 +364,22 @@ public class FormularioDeReceitas extends AppCompatActivity {
         }else if(requestCode == 2){
             if (resultCode == RESULT_OK){
                 try {
+                    AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
                     Uri imagemUri = dados.getData();
                     Bitmap imagemGaleria = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imagemUri);
-                    AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
-                    imagemReceita.setImageBitmap(imagemGaleria);
-
-
-                    byte[] imagemEmbytes;
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    imagemGaleria.compress(Bitmap.CompressFormat.JPEG, 80, stream);
-                    imagemEmbytes = stream.toByteArray();
-                    imagemReceitaConvertidaParaString = Base64.encodeToString(imagemEmbytes, Base64.DEFAULT);
+                    imagemGaleria.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    if(stream.size() > 2000000){
+                        Toast avisar = Toast.makeText(this, "Imagem muito Grande para ser colocada!", Toast.LENGTH_LONG);
+                        avisar.show();
+                        imagemGaleria.recycle();
+                        stream.close();
+                    }else{
+                        imagemEmBytes = stream.toByteArray();
+                        Glide.with(this).asBitmap().load(imagemGaleria).into(imagemReceita);
+                        Log.i("Testes", "onActivityResult: " + stream.size()+ "   " + imagemEmBytes.length);
+
+                    }
 
                     Log.i("Testes", "Adicionar imagem com a Galeria: RODOU ");
 

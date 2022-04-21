@@ -8,15 +8,13 @@ public class Receita implements Serializable {
 
     private int id = 0;
     private String nome;
+
+    private byte[] imagemReceita;
     private ArrayList<String> ingredientes;
     private String modoDePreparo;
     private String porcao;
     private String categoria;
     private int posicaoCategoria;
-
-
-
-    private String imagemReceita;
 
     public Receita(String nome, ArrayList<String> ingredientes, String modoDePreparo, String porcao, String categoria) {
         this.nome = nome;
@@ -95,14 +93,14 @@ public class Receita implements Serializable {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
-    public String getImagemReceita() {
+    public byte[] getImagemReceita() {
         return imagemReceita;
     }
 
-    public void setImagemReceita(String imagemReceita) {
+    public void setImagemReceita(byte[] imagemReceita) {
         this.imagemReceita = imagemReceita;
     }
+
 
 
 }

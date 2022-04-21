@@ -2,6 +2,8 @@ package com.example.mycookbook.adapterView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mycookbook.R;
 
 
@@ -40,12 +44,13 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.getNome().setText(receitas.get(position).getNome());
         holder.getCategoria().setText(receitas.get(position).getCategoria());
+        setImagemReceita(holder, position);
         holder.getBase().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Receita receita = receitas.get(position);
                 Log.i("Id da receita", "" + receita.getId());
-                Log.i("Testes", "onClick: " + receita.getImagemReceita());
+                Log.i("Imagem da receita", "" + receita.getImagemReceita());
                 abreReceitaEscolhida(receita, view);
             }
         });
@@ -66,6 +71,14 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
         });
 
 
+    }
+
+    private void setImagemReceita(ViewHolder holder, int position) {
+        Glide.with(holder.getImagem()
+                .getContext())
+                .load(receitas.get(position).getImagemReceita())
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.getImagem());
     }
 
     private void abreReceitaEscolhida(Receita receita, View view) {

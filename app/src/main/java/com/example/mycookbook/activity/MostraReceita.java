@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +14,13 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.mycookbook.R;
 import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.model.Receita;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,7 @@ public class MostraReceita extends AppCompatActivity {
     private TextView campoCategoria;
     private TextGradient toolbar;
     private Receita receita;
+    private byte[] imagemEmBytes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MostraReceita extends AppCompatActivity {
         configuraBotaoVoltar();
         configuraBotaoEditar();
         configuraCategoria();
+
 
     }
 
@@ -75,9 +79,9 @@ public class MostraReceita extends AppCompatActivity {
 
     private void carregaImagem() {
         AppCompatImageView imagemReceita = findViewById(R.id.imageview_mostra_receita);
-        byte[] imagemEmBytes = Base64.decode(receita.getImagemReceita(), Base64.DEFAULT);
-        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0 , imagemEmBytes.length);
-        imagemReceita.setImageBitmap(imagemDecodificada);
+        imagemEmBytes = receita.getImagemReceita();
+        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
+        Glide.with(this).asBitmap().load(imagemDecodificada).into(imagemReceita);
 
     }
 
@@ -141,5 +145,6 @@ public class MostraReceita extends AppCompatActivity {
             }
         });
     }
+
 
 }
