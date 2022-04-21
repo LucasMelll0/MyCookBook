@@ -79,9 +79,14 @@ public class MostraReceita extends AppCompatActivity {
 
     private void carregaImagem() {
         AppCompatImageView imagemReceita = findViewById(R.id.imageview_mostra_receita);
-        imagemEmBytes = receita.getImagemReceita();
-        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
-        Glide.with(this).asBitmap().load(imagemDecodificada).into(imagemReceita);
+        if (receita.getImagemReceita() != null){
+            imagemEmBytes = receita.getImagemReceita();
+            Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
+            Glide.with(this).asBitmap().load(imagemDecodificada).into(imagemReceita);
+
+        }else{
+            imagemEmBytes = new byte[]{};
+        }
 
     }
 

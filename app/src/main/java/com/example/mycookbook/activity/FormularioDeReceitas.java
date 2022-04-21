@@ -175,10 +175,12 @@ public class FormularioDeReceitas extends AppCompatActivity {
     }
 
     private void carregaImagem() {
-        imagemEmBytes = receita.getImagemReceita();
-        Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
-        AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
-        Glide.with(this).load(imagemDecodificada).into(imagemReceita);
+        if(receita.getImagemReceita() != null){
+            imagemEmBytes = receita.getImagemReceita();
+            Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
+            AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
+            Glide.with(this).load(imagemDecodificada).into(imagemReceita);
+        }
     }
 
     private void carregaIngredientes() {
@@ -368,8 +370,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
                     Uri imagemUri = dados.getData();
                     Bitmap imagemGaleria = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imagemUri);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    imagemGaleria.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                    if(stream.size() > 2000000){
+                    imagemGaleria.compress(Bitmap.CompressFormat.JPEG, 20, stream);
+                    if(stream.size() > 200000){
                         Toast avisar = Toast.makeText(this, "Imagem muito Grande para ser colocada!", Toast.LENGTH_LONG);
                         avisar.show();
                         imagemGaleria.recycle();

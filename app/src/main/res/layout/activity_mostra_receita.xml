@@ -37,30 +37,12 @@
             app:layout_constraintEnd_toEndOf="@id/toolbar_mostra_receita"
             app:layout_constraintTop_toTopOf="@id/toolbar_mostra_receita" />
 
-        <view
-            class="androidx.constraintlayout.widget.ConstraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/rounded_corner"
-            android:padding="4dp"
-            app:cardBackgroundColor="@color/cardview_shadow_end_color"
-            app:cardCornerRadius="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_mostra_receita">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="5dp"
-                android:paddingBottom="5dp">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageview_mostra_receita"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar_mostra_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxHeight="300dp"/>
@@ -69,6 +51,7 @@
                     android:id="@+id/textview_mostra_nome_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     tools:text="Nome da Receita"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -78,6 +61,7 @@
                     android:id="@+id/textview_titulo_ingredientes_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:text="Ingredientes"
                     app:layout_constraintTop_toBottomOf="@id/textview_mostra_nome_receita" />
@@ -86,6 +70,7 @@
                     android:id="@+id/linearlayout_mostra_ingredientes_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@id/textview_titulo_ingredientes_receita">
                 </LinearLayout>
@@ -94,6 +79,7 @@
                     android:id="@+id/textview_titulo_descricao_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:text="Modo de Preparo"
                     app:layout_constraintTop_toBottomOf="@id/linearlayout_mostra_ingredientes_receita" />
@@ -102,6 +88,7 @@
                     android:id="@+id/textview_mostra_descricao_receita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     tools:text="Descrição"
                     android:textSize="20sp"
                     app:layout_constraintTop_toBottomOf="@id/textview_titulo_descricao_receita" />
@@ -110,6 +97,7 @@
                     android:id="@+id/textview_titulo_porcao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:text="Rendimento"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,6 +107,7 @@
                     android:id="@+id/textview_mostra_porcao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     tools:text="porção"
                     android:textSize="20sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -137,6 +126,7 @@
                     android:id="@+id/textview_titulo_categoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:text="Categoria"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -146,16 +136,13 @@
                     android:id="@+id/textview_mostra_categoria"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:text="Categoria"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textview_titulo_categoria" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </view>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
