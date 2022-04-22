@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.ListaDeReceitas"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@color/lightGray">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <include
         android:id="@+id/toolbar_lista_de_receitas"
@@ -47,6 +46,14 @@
 
         <include layout="@layout/view_sem_item_na_lista"/>
     </view>
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressbar_lista_de_receitas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:visibility="gone"
+        />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab_nova_receita"

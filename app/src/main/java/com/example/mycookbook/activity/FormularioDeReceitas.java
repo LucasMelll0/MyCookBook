@@ -36,11 +36,9 @@ import com.example.mycookbook.R;
 import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.dataBase.ReceitasDBHelper;
-import com.example.mycookbook.imageCompressor.ImageCompressor;
 import com.example.mycookbook.model.Receita;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class FormularioDeReceitas extends AppCompatActivity {
@@ -101,9 +99,9 @@ public class FormularioDeReceitas extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent abreCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(FormularioDeReceitas.this, new String[]{Manifest.permission.CAMERA}, 1);
-                }else{
+                } else {
                     startActivityForResult(abreCamera, 1);
                 }
             }
@@ -114,17 +112,15 @@ public class FormularioDeReceitas extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Intent abreGaleria = new Intent(Intent.ACTION_PICK);
                 abreGaleria.setType("image/*");
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(FormularioDeReceitas.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
-                } else{
+                } else {
                     startActivityForResult(abreGaleria, 2);
                 }
             }
         });
         escolherImagem.show();
     }
-
-
 
 
     private void configuraSpinner() {
@@ -168,14 +164,14 @@ public class FormularioDeReceitas extends AppCompatActivity {
                     break;
                 }
             }
-        } else{
+        } else {
             Log.i("Veio os Extras?", "Não");
-        receita = new Receita();
-    }
+            receita = new Receita();
+        }
     }
 
     private void carregaImagem() {
-        if(receita.getImagemReceita() != null){
+        if (receita.getImagemReceita() != null) {
             imagemEmBytes = receita.getImagemReceita();
             Bitmap imagemDecodificada = BitmapFactory.decodeByteArray(imagemEmBytes, 0, imagemEmBytes.length);
             AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
@@ -205,21 +201,41 @@ public class FormularioDeReceitas extends AppCompatActivity {
         textIngrediente.setText(ingrediente);
         textIngrediente.setTextSize(25);
         textIngrediente.setTextColor(getColor(R.color.black));
+        ImageButton buttonEditarIngrediente = new ImageButton(this);
+        buttonEditarIngrediente.setId(idIngrediente);
+        buttonEditarIngrediente.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit));
+        buttonEditarIngrediente.setBackground(getResources().getDrawable(R.drawable.button_effect));
         ImageButton buttonExcluirIngrediente = new ImageButton(this);
         buttonExcluirIngrediente.setId(idIngrediente);
         buttonExcluirIngrediente.setImageDrawable(getResources().getDrawable(R.drawable.ic_remove));
         buttonExcluirIngrediente.setBackground(getResources().getDrawable(R.drawable.button_effect));
         horizontal.addView(seta);
         horizontal.addView(textIngrediente);
+        horizontal.addView(buttonEditarIngrediente);
         horizontal.addView(buttonExcluirIngrediente);
         idIngrediente++;
         ingredientes.add(ingrediente);
+
+        buttonEditarIngrediente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int ingredientePosicao = ingredientes.indexOf(ingrediente);
+                campoIngredientes.setText(ingredientes.get(ingredientePosicao));
+                horizontal.removeView(seta);
+                horizontal.removeView(textIngrediente);
+                horizontal.removeView(view);
+                horizontal.removeView(buttonExcluirIngrediente);
+
+
+            }
+        });
         buttonExcluirIngrediente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int ingredientePosicao = ingredientes.indexOf(ingrediente);
                 horizontal.removeView(seta);
                 horizontal.removeView(textIngrediente);
+                horizontal.removeView(buttonEditarIngrediente);
                 horizontal.removeView(view);
                 ingredientes.remove(ingredientePosicao);
                 idIngrediente--;
@@ -285,7 +301,6 @@ public class FormularioDeReceitas extends AppCompatActivity {
     }
 
 
-
     private void configuraBotaoNovoIngrediente() {
         AppCompatImageButton botaoAdicionar = findViewById(R.id.button_adiciona_ingrediente);
         linearLayout = findViewById(R.id.view_ingredientes);
@@ -295,18 +310,18 @@ public class FormularioDeReceitas extends AppCompatActivity {
         botaoAdicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 configuraNovoIngrediente();
 
-                Log.i("Testes", "Receita adicionada: " + ingredientes+ " ID ATUAL: " + idIngrediente);
+
+                Log.i("Testes", "Receita adicionada: " + ingredientes + " ID ATUAL: " + idIngrediente);
             }
         });
     }
 
     private void configuraNovoIngrediente() {
-       String ingrediente = campoIngredientes.getText().toString();
-       configuraAdicaoRemocaoDeIngredientes(ingrediente);
-        }
+        String ingrediente = campoIngredientes.getText().toString();
+        configuraAdicaoRemocaoDeIngredientes(ingrediente);
+    }
 
     private void finalizaFormulario() {
         preencheReceita();
@@ -343,8 +358,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent dados) {
         super.onActivityResult(requestCode, resultCode, dados);
-        if(requestCode == 1){
-            if(resultCode == RESULT_OK){
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
                 try {
                     Bitmap fotoCapturada = (Bitmap) dados.getExtras().get("data");
                     AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
@@ -357,35 +372,35 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
                     Log.i("Testes", "Adicionar imagem com a camera: RODOU ");
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.i("Testes", "Adicionar imagem com a camera: NÃO RODOU ");
                 }
             }
 
-        }else if(requestCode == 2){
-            if (resultCode == RESULT_OK){
+        } else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
                 try {
                     AppCompatImageView imagemReceita = findViewById(R.id.imageview_receita);
                     Uri imagemUri = dados.getData();
                     Bitmap imagemGaleria = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imagemUri);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     imagemGaleria.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-                    if(stream.size() > 200000){
+                    if (stream.size() > 200000) {
                         Toast avisar = Toast.makeText(this, "Imagem muito Grande para ser colocada!", Toast.LENGTH_LONG);
                         avisar.show();
                         imagemGaleria.recycle();
                         stream.close();
-                    }else{
+                    } else {
                         imagemEmBytes = stream.toByteArray();
                         Glide.with(this).asBitmap().load(imagemGaleria).into(imagemReceita);
-                        Log.i("Testes", "onActivityResult: " + stream.size()+ "   " + imagemEmBytes.length);
+                        Log.i("Testes", "onActivityResult: " + stream.size() + "   " + imagemEmBytes.length);
 
                     }
 
                     Log.i("Testes", "Adicionar imagem com a Galeria: RODOU ");
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.i("Testes", "Adicionar imagem com a Galeria: NÃO RODOU ");
                 }

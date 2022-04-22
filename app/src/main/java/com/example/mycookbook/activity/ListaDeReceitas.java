@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +28,6 @@ public class ListaDeReceitas extends AppCompatActivity {
     private AdapterListaDeReceitas adapter;
     private RecyclerView listaDeReceitas;
     private View semItemNaLista;
-
     public ReceitasDBHelper db = new ReceitasDBHelper(this);
 
     @Override
@@ -39,6 +39,8 @@ public class ListaDeReceitas extends AppCompatActivity {
 
 
     }
+
+
 
 
     @Override
@@ -102,7 +104,7 @@ public class ListaDeReceitas extends AppCompatActivity {
 
     }
 
-    private void atualizaReceitas() {
+    public void atualizaReceitas() {
         adapter.atualiza(dao.todas(db), semItemNaLista);
         adapter.notifyDataSetChanged();
     }
@@ -126,6 +128,7 @@ public class ListaDeReceitas extends AppCompatActivity {
         listaDeReceitas.setAdapter(adapter);
 
     }
+
 
 
 }
