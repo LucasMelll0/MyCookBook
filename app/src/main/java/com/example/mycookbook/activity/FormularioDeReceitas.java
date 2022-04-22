@@ -33,10 +33,10 @@ import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.mycookbook.R;
-import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -48,7 +48,6 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private EditText campoIngredientes;
     private EditText campoDescricao;
     private EditText campoPorcao;
-    private TextGradient toolbarText;
     private LinearLayout linearLayout;
     private int campoCategoria;
     private Spinner spinner;
@@ -58,6 +57,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private ReceitasDBHelper db = new ReceitasDBHelper(this);
     private ArrayList<String> ingredientes = new ArrayList<>();
     private int idIngrediente = 0;
+    private CollapsingToolbarLayout toolbarText;
 
 
     @Override
@@ -149,7 +149,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private void carregaReceita() {
         Intent dados = getIntent();
         if (dados.hasExtra("receita")) {
-            toolbarText.setText("Editando Receita");
+            toolbarText.setTitle("Editando Receita");
             receita = (Receita) dados.getSerializableExtra("receita");
             Log.i("Veio os Extras?", "Sim " + receita.getId());
             campoNome.setText(receita.getNome());
@@ -247,8 +247,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
 
     private void configuraToolBar() {
-        toolbarText = findViewById(R.id.TextView_toolBar);
-        toolbarText.setText("Nova Receita");
+       toolbarText = findViewById(R.id.toolbar_formulario);
+        toolbarText.setTitle("Nova Receita");
 
     }
 

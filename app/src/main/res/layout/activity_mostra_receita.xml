@@ -27,7 +27,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageview_mostra_receita"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
 
@@ -43,7 +43,10 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.MostraReceita"
+        >
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -57,8 +60,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:text="Ingredientes"
-                app:layout_anchor="@id/appbar_mostrareceita"
-                app:layout_anchorGravity="bottom" />
+                 />
 
             <LinearLayout
                 android:id="@+id/linearlayout_mostra_ingredientes_receita"
@@ -67,8 +69,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                app:layout_anchor="@id/textview_titulo_ingredientes_receita"
-                app:layout_anchorGravity="bottom">
+                >
 
             </LinearLayout>
 
@@ -79,8 +80,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/modo_de_preparo_mostra_receita"
-                app:layout_anchor="@id/linearlayout_mostra_ingredientes_receita"
-                app:layout_anchorGravity="bottom" />
+                />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textview_mostra_descricao_receita"
@@ -90,7 +90,6 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20sp"
-                app:layout_anchor="@id/textview_titulo_descricao_receita"
                 tools:text="Descrição" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -102,20 +101,27 @@
 
                 />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textview_mostra_porcao"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="porção" />
+                android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/porcoes_mostra_receita" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_mostra_porcao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="porção" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/porcoes_mostra_receita" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textview_titulo_categoria"
@@ -131,8 +137,7 @@
                 android:layout_marginStart="5dp"
                 android:text="Categoria"
                 android:textSize="20sp"
-                app:layout_anchor="@id/textview_titulo_categoria"
-                app:layout_anchorGravity="bottom" />
+                />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -142,24 +147,24 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/button_voltar_lista_de_receitas"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
+        android:layout_gravity="bottom"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/voltar"
+        android:text="VOLTAR"
         app:icon="@drawable/ic_back"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
          />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/button_editar_receita"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/editar"
+        android:text="EDITAR"
         app:icon="@drawable/ic_edit"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
          />
