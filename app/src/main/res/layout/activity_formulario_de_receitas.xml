@@ -135,7 +135,7 @@
                 app:layout_constraintTop_toBottomOf="@id/edittext_ingredientes_da_receitas"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="10dp"
-                android:text="@string/modo_de_preparo"
+                android:text="@string/modo_de_preparo_formulario"
                 />
 
             <androidx.appcompat.widget.AppCompatEditText

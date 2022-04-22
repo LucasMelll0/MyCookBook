@@ -5,9 +5,12 @@
     <string name="text_adicione_receitas_no_botao_abaixo">Adicione receitas no botão abaixo!</string>
     <string name="categoria_item_lista">Categoria:</string>
     <string name="testes">Olá</string>
-    <string name="modo_de_preparo">Modo de Preparo</string>
+    <string name="modo_de_preparo_mostra_receita">Modo de Preparo</string>
     <string name="ingredientes">Ingredientes</string>
     <string name="descricao">Descrição</string>
     <string name="porcoes_mostra_receita">Porções</string>
     <string name="button_escolher_imagem">Escolher imagem</string>
+    <string name="voltar">VOLTAR</string>
+    <string name="editar">EDITAR</string>
+    <string name="modo_de_preparo_formulario">Modo de Preparo</string>
 </resources>

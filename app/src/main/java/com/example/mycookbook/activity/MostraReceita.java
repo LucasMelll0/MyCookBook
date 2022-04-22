@@ -14,24 +14,25 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.example.mycookbook.R;
 import com.example.mycookbook.customViews.TextGradient;
 import com.example.mycookbook.model.Receita;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 
 public class MostraReceita extends AppCompatActivity {
 
-    private TextView campoNome;
     private LinearLayout campoIngredientes;
     private TextView campoDescricao;
     private TextView campoPorcao;
     private TextView campoCategoria;
-    private TextGradient toolbar;
     private Receita receita;
     private byte[] imagemEmBytes;
 
@@ -41,10 +42,10 @@ public class MostraReceita extends AppCompatActivity {
         setContentView(R.layout.activity_mostra_receita);
         inicializadorDosCampos();
         carregaReceita();
-        mudaToolBar();
         configuraBotaoVoltar();
         configuraBotaoEditar();
         configuraCategoria();
+        mudaToolBar();
 
 
     }
@@ -59,7 +60,6 @@ public class MostraReceita extends AppCompatActivity {
     }
 
     private void inicializadorDosCampos() {
-        campoNome = findViewById(R.id.textview_mostra_nome_receita);
         campoIngredientes = findViewById(R.id.linearlayout_mostra_ingredientes_receita);
         campoDescricao = findViewById(R.id.textview_mostra_descricao_receita);
         campoPorcao = findViewById(R.id.textview_mostra_porcao);
@@ -71,7 +71,6 @@ public class MostraReceita extends AppCompatActivity {
         receita = (Receita) dados.getSerializableExtra("receita");
         carregaIngredientes();
         carregaImagem();
-        campoNome.setText(receita.getNome());
         campoDescricao.setText(receita.getModoDePreparo());
         campoPorcao.setText(receita.getPorcao());
         campoCategoria.setText(receita.getCategoria());
@@ -114,15 +113,15 @@ public class MostraReceita extends AppCompatActivity {
     }
 
     private void mudaToolBar() {
-        toolbar = findViewById(R.id.TextView_toolBar);
-        toolbar.setText("");
+        CollapsingToolbarLayout toolbar = findViewById(R.id.toolbar_mostra_receita);
+        toolbar.setTitle(receita.getNome());
 
 
     }
 
     private void configuraBotaoVoltar() {
 
-        Button botaoVoltar = findViewById(R.id.button_voltar_lista_de_receitas);
+        ExtendedFloatingActionButton botaoVoltar = findViewById(R.id.button_voltar_lista_de_receitas);
 
         botaoVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +135,7 @@ public class MostraReceita extends AppCompatActivity {
 
     private void configuraBotaoEditar() {
 
-        Button botaoEditar = findViewById(R.id.button_editar_receita);
+        ExtendedFloatingActionButton botaoEditar = findViewById(R.id.button_editar_receita);
 
         botaoEditar.setOnClickListener(new View.OnClickListener() {
             @Override
