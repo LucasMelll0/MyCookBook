@@ -221,6 +221,7 @@ public class FormularioDeReceitas extends AppCompatActivity {
             public void onClick(View view) {
                 int ingredientePosicao = ingredientes.indexOf(ingrediente);
                 campoIngredientes.setText(ingredientes.get(ingredientePosicao));
+                ingredientes.remove(ingredientePosicao);
                 horizontal.removeView(seta);
                 horizontal.removeView(textIngrediente);
                 horizontal.removeView(view);
