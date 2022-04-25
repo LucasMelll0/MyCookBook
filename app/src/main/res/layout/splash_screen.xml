@@ -6,7 +6,6 @@
     android:background="@color/yellow"
     >
 
-    sd
 
     <View
         android:id="@+id/view_splash_screen_white"
