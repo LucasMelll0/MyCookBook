@@ -42,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="@id/progressbar_splash_screen"
         app:layout_constraintStart_toStartOf="@id/progressbar_splash_screen"
         app:layout_constraintEnd_toEndOf="@id/progressbar_splash_screen"
-        app:srcCompat="@drawable/ic_baseline_menu_book_24"
+        app:srcCompat="@drawable/ic_baseline_local_dining_24"
         android:elevation="@dimen/cardview_default_radius"/>
     <ProgressBar
         android:id="@+id/progressbar_splash_screen"
