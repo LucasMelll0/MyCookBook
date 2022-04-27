@@ -18,7 +18,7 @@
         android:layout_marginVertical="3dp"
         android:background="@drawable/rounded_corner_white"
         android:orientation="vertical"
-        android:elevation="20dp">
+        android:elevation="@dimen/cardview_default_elevation">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imagem_item_receita"
