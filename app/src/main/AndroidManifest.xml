@@ -22,7 +22,6 @@
         <activity android:name=".activity.MostraReceita" />
         <activity
             android:name=".activity.SplashScreen"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="true">
             <intent-filter>
