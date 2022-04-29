@@ -48,13 +48,11 @@ public class ListaDeReceitas extends AppCompatActivity {
                 if(alternaLayoutBol == false){
                     RecyclerView.LayoutManager layoutReceitas = new GridLayoutManager(getApplicationContext(), 2);
                     listaDeReceitas.setLayoutManager(layoutReceitas);
-                    //configuraAdapter(listaDeReceitas);
                     alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_linear));
                     alternaLayoutBol = true;
                 }else{
                     RecyclerView.LayoutManager layoutReceitas = new LinearLayoutManager(getApplicationContext());
                     listaDeReceitas.setLayoutManager(layoutReceitas);
-                    //configuraAdapter(listaDeReceitas);
                     alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid));
                     alternaLayoutBol = false;
                 }
