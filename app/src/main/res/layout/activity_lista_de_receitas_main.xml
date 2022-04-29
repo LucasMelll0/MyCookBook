@@ -15,6 +15,16 @@
         android:background="@drawable/gradient"
         />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_alterna_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/toolbar_lista_de_receitas"
+        app:layout_anchorGravity="center_vertical|right"
+        android:background="@drawable/button_effect"
+        app:srcCompat="@drawable/ic_grid"
+        android:layout_marginEnd="10dp"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"

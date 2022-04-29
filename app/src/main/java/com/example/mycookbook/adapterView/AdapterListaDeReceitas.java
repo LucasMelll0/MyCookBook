@@ -74,11 +74,19 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
     }
 
     private void setImagemReceita(ViewHolder holder, int position) {
-        Glide.with(holder.getImagem()
-                .getContext())
-                .load(receitas.get(position).getImagemReceita())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.getImagem());
+
+        if(receitas.get(position).getImagemReceita() != null){
+            Glide.with(holder.getImagem()
+                    .getContext())
+                    .load(receitas.get(position).getImagemReceita())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(holder.getImagem());
+        }else{
+            Glide.with(holder.getImagem().getContext())
+                    .load(holder.getImagem().getContext().getDrawable(R.drawable.receita_sem_imagem))
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(holder.getImagem());
+        }
     }
 
     private void abreReceitaEscolhida(Receita receita, View view) {

@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +28,7 @@ public class ListaDeReceitas extends AppCompatActivity {
     private RecyclerView listaDeReceitas;
     private View semItemNaLista;
     public ReceitasDBHelper db = new ReceitasDBHelper(this);
+    private Boolean alternaLayoutBol = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,31 @@ public class ListaDeReceitas extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_receitas_main);
         configuraFabNovaReceita();
         configuraLista();
-
-
+        configuraBotaoMudaLayout();
     }
 
+    private void configuraBotaoMudaLayout() {
+        AppCompatImageView alternaLayout = findViewById(R.id.image_alterna_layout);
 
+        alternaLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(alternaLayoutBol == false){
+                    RecyclerView.LayoutManager layoutReceitas = new GridLayoutManager(getApplicationContext(), 2);
+                    listaDeReceitas.setLayoutManager(layoutReceitas);
+                    //configuraAdapter(listaDeReceitas);
+                    alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_linear));
+                    alternaLayoutBol = true;
+                }else{
+                    RecyclerView.LayoutManager layoutReceitas = new LinearLayoutManager(getApplicationContext());
+                    listaDeReceitas.setLayoutManager(layoutReceitas);
+                    //configuraAdapter(listaDeReceitas);
+                    alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid));
+                    alternaLayoutBol = false;
+                }
+            }
+        });
+    }
 
 
     @Override
@@ -117,7 +137,6 @@ public class ListaDeReceitas extends AppCompatActivity {
         RecyclerView.LayoutManager layoutReceitas = new LinearLayoutManager(getApplicationContext());
         listaDeReceitas.setLayoutManager(layoutReceitas);
         listaDeReceitas.setHasFixedSize(true);
-        listaDeReceitas.addItemDecoration(new DividerItemDecoration(this, LinearLayout.HORIZONTAL));
         configuraAdapter(listaDeReceitas);
         registerForContextMenu(listaDeReceitas);
     }
