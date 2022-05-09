@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/toolbar_lista_de_receitas"
-        layout="@layout/frame_tool_bar"
+        layout="@layout/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/gradient"
