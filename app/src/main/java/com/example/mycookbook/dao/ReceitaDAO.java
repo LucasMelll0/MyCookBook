@@ -45,7 +45,6 @@ public class ReceitaDAO{
 
     @Nullable
     private Receita buscaReceitaPeloId(Receita receita) {
-        Receita receitaEncontrada = null;
         for(Receita a: receitas){ // Para a na lista de receitas faça
             if (a.getId() == receita.getId()){ // Se o id de "a" for o mesmo id da receita enviada como parametro
                 return a; //Retorne "a"

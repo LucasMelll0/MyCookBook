@@ -45,19 +45,13 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
         holder.getNome().setText(receitas.get(position).getNome());
         holder.getCategoria().setText(receitas.get(position).getCategoria());
         setImagemReceita(holder, position);
-        holder.getBase().setOnClickListener(new View.OnClickListener() {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Receita receita = receitas.get(position);
                 Log.i("Id da receita", "" + receita.getId());
                 Log.i("Imagem da receita", "" + receita.getImagemReceita());
-                abreReceitaEscolhida(receita, view);
-            }
-        });
-        holder.getNome().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Receita receita = receitas.get(position);
                 abreReceitaEscolhida(receita, view);
             }
         });
