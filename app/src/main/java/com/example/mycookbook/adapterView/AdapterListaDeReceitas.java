@@ -51,7 +51,6 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
             public void onClick(View view) {
                 Receita receita = receitas.get(position);
                 Log.i("Id da receita", "" + receita.getId());
-                Log.i("Imagem da receita", "" + receita.getImagemReceita());
                 abreReceitaEscolhida(receita, view);
             }
         });
@@ -59,7 +58,7 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                setPosition(holder.getPosition()); // Atribui ao atributo position a posição do item clicado longamente
+                setPosition(position); // Atribui ao atributo position a posição do item clicado longamente
                 return false;
             }
         });
