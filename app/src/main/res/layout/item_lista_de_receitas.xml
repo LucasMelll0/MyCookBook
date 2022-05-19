@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="3dp"
         android:layout_marginVertical="3dp"
-        android:background="@drawable/rounded_corner_white"
+        android:background="@drawable/rounded_corner_adapter"
         android:orientation="vertical"
         android:elevation="@dimen/cardview_default_elevation">
 

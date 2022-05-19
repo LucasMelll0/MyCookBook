@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,10 @@ import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ListaDeReceitas extends AppCompatActivity {
 
@@ -45,12 +50,12 @@ public class ListaDeReceitas extends AppCompatActivity {
         alternaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(alternaLayoutBol == false){
+                if (alternaLayoutBol == false) {
                     RecyclerView.LayoutManager layoutReceitas = new GridLayoutManager(getApplicationContext(), 2);
                     listaDeReceitas.setLayoutManager(layoutReceitas);
                     alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_linear));
                     alternaLayoutBol = true;
-                }else{
+                } else {
                     RecyclerView.LayoutManager layoutReceitas = new LinearLayoutManager(getApplicationContext());
                     listaDeReceitas.setLayoutManager(layoutReceitas);
                     alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid));
@@ -123,10 +128,22 @@ public class ListaDeReceitas extends AppCompatActivity {
     }
 
     public void atualizaReceitas() {
-        adapter.atualiza(dao.todas(db), semItemNaLista);
-        adapter.notifyDataSetChanged();
-    }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ProgressBar progressBar = findViewById(R.id.progressbar_lista_de_receitas);
 
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.VISIBLE);
+                adapter.atualiza(dao.todas(db), semItemNaLista);
+                adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
+            }
+
+        });
+
+
+    }
 
     private void configuraLista() {
         listaDeReceitas = findViewById(R.id.recyclerview_lista_de_receitas);
@@ -145,7 +162,6 @@ public class ListaDeReceitas extends AppCompatActivity {
         listaDeReceitas.setAdapter(adapter);
 
     }
-
 
 
 }
