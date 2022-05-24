@@ -11,14 +11,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_formulario"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_formulario"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleTextColor="@color/white"
-            app:contentScrim="@color/yellow"
+            app:contentScrim="@color/black"
             app:expandedTitleTextColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -34,7 +35,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
+                app:layout_collapseMode="pin"
+                android:backgroundTint="@color/black">
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/button_excluir_receita"

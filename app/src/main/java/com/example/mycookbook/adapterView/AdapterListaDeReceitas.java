@@ -2,8 +2,10 @@ package com.example.mycookbook.adapterView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +83,7 @@ public class AdapterListaDeReceitas extends RecyclerView.Adapter<ViewHolder> imp
                     .into(holder.getImagem());
         }
     }
+
 
     private void abreReceitaEscolhida(Receita receita, View view) {
         Intent mostraReceitaActivity = new Intent(view.getContext(), MostraReceita.class);

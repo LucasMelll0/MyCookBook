@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.VolumeShaper;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,10 +76,6 @@ public class FormularioDeReceitas extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
     private void configuraBotaoAdicionarImagem() {
         AppCompatButton botaoImagem = findViewById(R.id.button_adicionar_imagem);
@@ -126,7 +124,9 @@ public class FormularioDeReceitas extends AppCompatActivity {
     private void configuraSpinner() {
         spinner = findViewById(R.id.spinner_categoria);
 
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this, R.array.categorias_array, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,
+                R.array.categorias_array,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         adapterSpinner.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapterSpinner);
 
@@ -188,6 +188,8 @@ public class FormularioDeReceitas extends AppCompatActivity {
     }
 
     private void configuraAdicaoRemocaoDeIngredientes(String ingrediente) {
+        Configuration configuration = new Configuration();
+        int currentNightMode = configuration.uiMode & Configuration.UI_MODE_NIGHT_MASK;
         LinearLayout horizontal = new LinearLayout(this);
         linearLayout.addView(horizontal);
         horizontal.setOrientation(LinearLayout.HORIZONTAL);
@@ -200,7 +202,14 @@ public class FormularioDeReceitas extends AppCompatActivity {
         textIngrediente.setId(idIngrediente);
         textIngrediente.setText(ingrediente);
         textIngrediente.setTextSize(25);
-        textIngrediente.setTextColor(getColor(R.color.black));
+        switch (currentNightMode){
+            case Configuration.UI_MODE_NIGHT_NO:
+                textIngrediente.setTextColor(getColor(R.color.black));
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                textIngrediente.setTextColor(getColor(R.color.white));
+                break;
+        }
         ImageButton buttonEditarIngrediente = new ImageButton(this);
         buttonEditarIngrediente.setId(idIngrediente);
         buttonEditarIngrediente.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit));

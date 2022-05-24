@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -130,19 +131,21 @@ public class ListaDeReceitas extends AppCompatActivity {
     public void atualizaReceitas() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         ProgressBar progressBar = findViewById(R.id.progressbar_lista_de_receitas);
-
+        progressBar.setVisibility(View.VISIBLE);
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                progressBar.setVisibility(View.VISIBLE);
                 adapter.atualiza(dao.todas(db), semItemNaLista);
-                adapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.GONE);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
-
         });
-
-
     }
 
     private void configuraLista() {
