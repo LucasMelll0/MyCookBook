@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mycookbook.R;
 import com.example.mycookbook.adapterView.AdapterListaDeReceitas;
 import com.example.mycookbook.dao.ReceitaDAO;
@@ -88,12 +90,28 @@ public class ListaDeReceitas extends AppCompatActivity {
     }
 
     private void configuraAlertDialogParaRemocao(int posicao, Receita receitaEscolhida) {
-        AlertDialog.Builder confirmacaoDeRemocao = new AlertDialog.Builder(this);
-        confirmacaoDeRemocao.setTitle("Excluir Receita");
-        confirmacaoDeRemocao.setMessage("Deseja realmente excluir a receita permanentemente?");
-        confirmacaoDeRemocao.setPositiveButton("Sim", confirmaExclusao(posicao, receitaEscolhida))
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View inflater = getLayoutInflater().inflate(R.layout.dialog_excluir_receita, null);
+        builder.setView(inflater);
+        builder.
+        setPositiveButton("Sim", confirmaExclusao(posicao, receitaEscolhida))
                 .setNegativeButton("Cancelar", null);
-        confirmacaoDeRemocao.show();
+        AppCompatImageView imagemDialog = inflater.findViewById(R.id.imageview_receita_dialog);
+
+        if (receitaEscolhida.getImagemReceita() != null){
+            Glide.with(this)
+                    .load(receitaEscolhida.getImagemReceita())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imagemDialog);
+        }else{
+            Glide.with(this)
+                    .load(getResources().getDrawable(R.drawable.receita_sem_imagem))
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imagemDialog);
+        }
+
+        builder.show();
     }
 
     @NonNull
