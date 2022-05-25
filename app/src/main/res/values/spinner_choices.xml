@@ -7,6 +7,15 @@
         <item>Torta</item>
         <item>Bolo</item>
         <item>Sorvete</item>
+        <item>Sopa</item>
+        <item>Saladas</item>
+        <item>Bebidas</item>
+        <item>Molhos</item>
+        <item>Massas</item>
+        <item>Patê</item>
+        <item>Cozidos</item>
+        <item>Pães</item>
+        <item>Pizza</item>
     </string-array>
 
 </resources>
