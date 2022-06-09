@@ -3,8 +3,8 @@ package com.example.mycookbook.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,6 @@ import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,7 +36,7 @@ public class ListaDeReceitas extends AppCompatActivity {
     private RecyclerView listaDeReceitas;
     private View semItemNaLista;
     public ReceitasDBHelper db = new ReceitasDBHelper(this);
-    private Boolean alternaLayoutBol = false;
+    private Boolean layout = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,24 +45,37 @@ public class ListaDeReceitas extends AppCompatActivity {
         configuraFabNovaReceita();
         configuraLista();
         configuraBotaoMudaLayout();
+        configuraBotaoLogar();
+    }
+
+    private void configuraBotaoLogar() {
+        AppCompatTextView logar = findViewById(R.id.textview_login_lista_de_receitas);
+        logar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent vaiParaTelaDeLogin = new Intent(ListaDeReceitas.this, LoginActiivty.class);
+                startActivity(vaiParaTelaDeLogin);
+            }
+        });
     }
 
     private void configuraBotaoMudaLayout() {
         AppCompatImageView alternaLayout = findViewById(R.id.image_alterna_layout);
 
+
         alternaLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (alternaLayoutBol == false) {
+                if (layout) {
                     RecyclerView.LayoutManager layoutReceitas = new GridLayoutManager(getApplicationContext(), 2);
                     listaDeReceitas.setLayoutManager(layoutReceitas);
                     alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_linear));
-                    alternaLayoutBol = true;
+                    layout = false;
                 } else {
                     RecyclerView.LayoutManager layoutReceitas = new LinearLayoutManager(getApplicationContext());
                     listaDeReceitas.setLayoutManager(layoutReceitas);
                     alternaLayout.setImageDrawable(getResources().getDrawable(R.drawable.ic_grid));
-                    alternaLayoutBol = false;
+                    layout = true;
                 }
             }
         });
@@ -95,16 +108,16 @@ public class ListaDeReceitas extends AppCompatActivity {
         View inflater = getLayoutInflater().inflate(R.layout.dialog_excluir_receita, null);
         builder.setView(inflater);
         builder.
-        setPositiveButton("Sim", confirmaExclusao(posicao, receitaEscolhida))
+                setPositiveButton("Sim", confirmaExclusao(posicao, receitaEscolhida))
                 .setNegativeButton("Cancelar", null);
         AppCompatImageView imagemDialog = inflater.findViewById(R.id.imageview_receita_dialog);
 
-        if (receitaEscolhida.getImagemReceita() != null){
+        if (receitaEscolhida.getImagemReceita() != null) {
             Glide.with(this)
                     .load(receitaEscolhida.getImagemReceita())
                     .apply(RequestOptions.circleCropTransform())
                     .into(imagemDialog);
-        }else{
+        } else {
             Glide.with(this)
                     .load(getResources().getDrawable(R.drawable.receita_sem_imagem))
                     .apply(RequestOptions.circleCropTransform())

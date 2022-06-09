@@ -14,4 +14,5 @@
     <string name="editar">EDITAR</string>
     <string name="modo_de_preparo_formulario">Modo de Preparo</string>
     <string name="deseja_mesmo_excluir_essa_receita">Deseja mesmo EXCLUIR essa receita?</string>
+    <string name="e_mail">E-mail</string>
 </resources>

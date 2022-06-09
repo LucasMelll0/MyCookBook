@@ -14,6 +14,15 @@
         android:layout_height="wrap_content"
         android:background="@drawable/gradient"
         />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textview_login_lista_de_receitas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGAR"
+        android:textSize="20sp"
+        app:layout_anchor="@id/image_alterna_layout"
+        app:layout_anchorGravity="center_vertical|start"
+        android:layout_gravity="start|center_vertical"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_alterna_layout"
