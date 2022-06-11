@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "803180500611",
+    "project_id": "mycookbook-24edc",
+    "storage_bucket": "mycookbook-24edc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803180500611:android:7b87505fbec4bc3f706db6",
+        "android_client_info": {
+          "package_name": "com.example.mycookbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803180500611-1ceeh5kn2pmtvtuiku6hc7sn8vv8sgf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeUZueYsXLg8_NWt4Z5KSOe2cMBC-FZAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803180500611-1ceeh5kn2pmtvtuiku6hc7sn8vv8sgf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

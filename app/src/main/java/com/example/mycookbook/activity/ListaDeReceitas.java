@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +26,9 @@ import com.example.mycookbook.dao.ReceitaDAO;
 import com.example.mycookbook.dataBase.ReceitasDBHelper;
 import com.example.mycookbook.model.Receita;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,6 +40,8 @@ public class ListaDeReceitas extends AppCompatActivity {
     private View semItemNaLista;
     public ReceitasDBHelper db = new ReceitasDBHelper(this);
     private Boolean layout = true;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +51,45 @@ public class ListaDeReceitas extends AppCompatActivity {
         configuraLista();
         configuraBotaoMudaLayout();
         configuraBotaoLogar();
+        Toast.makeText(this, "Usuário atual: " + firebaseAuth.getCurrentUser(), Toast.LENGTH_SHORT).show();
     }
 
     private void configuraBotaoLogar() {
         AppCompatTextView logar = findViewById(R.id.textview_login_lista_de_receitas);
-        logar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent vaiParaTelaDeLogin = new Intent(ListaDeReceitas.this, LoginActiivty.class);
-                startActivity(vaiParaTelaDeLogin);
-            }
-        });
+        if (firebaseAuth.getCurrentUser() == null) {
+            logar.setText("LOGIN");
+            logar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent vaiParaTelaDeLogin = new Intent(ListaDeReceitas.this, LoginActiivty.class);
+                    startActivity(vaiParaTelaDeLogin);
+                }
+            });
+        } else {
+            logar.setText("LOGOUT");
+            logar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ExecutorService executorService = Executors.newSingleThreadExecutor();
+                    progressBar.setVisibility(View.VISIBLE);
+                    executorService.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            firebaseAuth.signOut();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setVisibility(View.GONE);
+                                    configuraBotaoLogar();
+                                    Toast.makeText(ListaDeReceitas.this, "Usuário Deslogado!!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
     }
 
     private void configuraBotaoMudaLayout() {
@@ -161,7 +194,7 @@ public class ListaDeReceitas extends AppCompatActivity {
 
     public void atualizaReceitas() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        ProgressBar progressBar = findViewById(R.id.progressbar_lista_de_receitas);
+        progressBar = findViewById(R.id.progressbar_lista_de_receitas);
         progressBar.setVisibility(View.VISIBLE);
         executor.execute(new Runnable() {
             @Override
