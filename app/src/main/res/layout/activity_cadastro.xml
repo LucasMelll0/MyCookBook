@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="hardcodedtext">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="hardcodedtext">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CADASTRO"
-            android:textSize="50sp"
-            android:textColor="@color/yellow"
             android:layout_marginBottom="100dp"
+            android:text="CADASTRO"
+            android:textColor="@color/yellow"
+            android:textSize="50sp"
             app:layout_constraintBottom_toTopOf="@id/edittext_nome_usuario_cadastro"
-            app:layout_constraintStart_toStartOf="@id/edittext_nome_usuario_cadastro"
-            app:layout_constraintEnd_toEndOf="@id/edittext_nome_usuario_cadastro"/>
+            app:layout_constraintEnd_toEndOf="@id/edittext_nome_usuario_cadastro"
+            app:layout_constraintStart_toStartOf="@id/edittext_nome_usuario_cadastro" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edittext_nome_usuario_cadastro"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginBottom="100dp"
             android:hint="Usuário"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edittext_email_cadastro"
@@ -34,44 +40,44 @@
             android:layout_marginTop="30dp"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
-            app:layout_constraintTop_toBottomOf="@id/edittext_nome_usuario_cadastro"
+            app:layout_constraintEnd_toEndOf="@id/edittext_nome_usuario_cadastro"
             app:layout_constraintStart_toStartOf="@id/edittext_nome_usuario_cadastro"
-            app:layout_constraintEnd_toEndOf="@id/edittext_nome_usuario_cadastro"/>
+            app:layout_constraintTop_toBottomOf="@id/edittext_nome_usuario_cadastro" />
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputlayout_cadastro_light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            app:passwordToggleEnabled="true"
-            app:layout_constraintTop_toBottomOf="@id/edittext_email_cadastro">
+            app:layout_constraintTop_toBottomOf="@id/edittext_email_cadastro"
+            app:passwordToggleEnabled="true">
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_senha_cadastro"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
+                android:backgroundTint="@color/white"
                 android:hint="Senha"
                 android:inputType="textPassword"
-                android:backgroundTint="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/edittext_email_cadastro"
+                app:layout_constraintEnd_toEndOf="@id/edittext_email_cadastro"
                 app:layout_constraintStart_toStartOf="@id/edittext_email_cadastro"
-                app:layout_constraintEnd_toEndOf="@id/edittext_email_cadastro"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button_confirmar_cadastro"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/yellow"
-                android:text="CONFIRMAR"
-                app:layout_constraintTop_toBottomOf="@id/edittext_senha_cadastro"
-                app:layout_constraintStart_toStartOf="@id/edittext_senha_cadastro"
-                app:layout_constraintEnd_toEndOf="@id/edittext_senha_cadastro"/>
+                app:layout_constraintTop_toBottomOf="@id/edittext_email_cadastro" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/button_confirmar_cadastro"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/yellow"
+            android:gravity="center"
+            android:text="CONFIRMAR"
+            app:layout_constraintEnd_toEndOf="@id/inputlayout_cadastro_light"
+            app:layout_constraintStart_toStartOf="@id/inputlayout_cadastro_light"
+            app:layout_constraintTop_toBottomOf="@id/inputlayout_cadastro_light" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
